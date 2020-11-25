@@ -14,6 +14,16 @@ header {
     text-align: center;
 }
 
+div.tittle{
+    margin-right: 257px;
+}
+
+div.logo{
+    margin-top: 19px;
+    float: left;
+}
+
+
 #divCentral {
     display: flex;
 	justify-content: space-between;

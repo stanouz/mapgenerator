@@ -1,13 +1,16 @@
 <header>
-	<div style="float:left;">
+	<div class="logo">
 		<a href="index.php">
 			<img src="img/logo.png" width="50%" height="50%">
 		</a>
 	</div>
 
-	<h1><?= $nomSite ?></h1>
-
-	<strong><?= $baseline ?></strong>
+	<div class="tittle">
+		<h1><?= $nomSite ?></h1>
+		<h2><?= $baseline ?></h2>
+	</div>
+	
+	
 
 </header>
 
