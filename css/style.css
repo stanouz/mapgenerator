@@ -3,16 +3,15 @@ body {
 }
 
 header,
-nav,
+
 main,
 footer {
     padding: 1em 0;
 }
 
 header {
-    background-color: #95A5A6;
+    background-color: #515A5A ;
     text-align: center;
-    border-radius: 1em;
 }
 
 #divCentral {
@@ -24,24 +23,7 @@ header {
 	height: 100%;
 }
 
-nav {
-	flex : 2;
-    background-color: #95A5A6;
-    padding-left: 1em;
-    padding-right: 1em;
-	margin-left: 2em;
-    line-height: 2em;
-}
 
-nav a {
-    color: #0000FF;
-    text-decoration: underline;
-}
-
-nav a:visited {
-    color: #0000FF;
-    text-decoration: none;
-}
 
 main {
 	flex : 10;
@@ -52,7 +34,7 @@ main {
 footer {
 	display: flex;
 	justify-content: space-around;
-    background-color: #95A5A6;
+    background-color: #515A5A;
     border-radius: 1em;
 }
 
@@ -61,3 +43,33 @@ img.centered{
     margin-left: auto;
     margin-right: auto;
 }
+
+
+/* Style horizontal nav header */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-right: 1px solid #515A5A;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+

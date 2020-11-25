@@ -8,16 +8,12 @@
 </head>
 <body>
 	<?php include('static/header.php'); ?>
+	<?php include('static/menu.php'); ?>
 
 	<div id="divCentral">
 		<!-- <?php include('static/menu.php'); ?> -->
 		<main>
-			<ul>
-				<li>Dans ce site web, vous pouvez génerer des carte de jeu de rôle !</li>
-			</ul>
-			<a href="index.php?page=generer" class="centered">
-				<img src="img/exemple.jpg" >
-			</a>
+			<h1> AJOUTER UNE PHOTO D'UNE CARTE GENERER </h1>
 		</main>
 	</div>
 

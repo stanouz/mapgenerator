@@ -8,9 +8,9 @@
 </head>
 <body>
 	<?php include('static/header.php'); ?>
-
+	
 	<div id="divCentral">
-		<?php include('static/menu.php'); ?> 
+		 
 		<main>
 			<h1> Afficher la carte ici avec les parametre etc... </h1>
 		</main>

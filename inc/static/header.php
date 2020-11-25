@@ -10,5 +10,3 @@
 	<strong><?= $baseline ?></strong>
 
 </header>
-
-<?php include('static/menu_header.php'); ?>
