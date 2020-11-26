@@ -124,7 +124,7 @@ DROP attributs_tmp;
 Pour remettre les ID à 0
 */
 CREATE TABLE test(
-	ID INT PRIMARY KEY;
+	ID INT PRIMARY KEY
 );
 
 INSERT INTO test(id)
