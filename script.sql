@@ -117,3 +117,20 @@ Suppression de la colonne temporaire
 
 ALTER TABLE créature
 DROP attributs_tmp;
+
+
+
+/*
+Pour remettre les ID à 0
+*/
+
+INSERT INTO test(id)
+SELECT c.id
+FROM dataset.DonneesFournies c
+WHERE c.type = 'mobilier';
+
+
+UPDATE test
+SET id = id - (SELECT min(id)
+               FROM test)
+
