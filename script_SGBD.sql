@@ -19,16 +19,16 @@ CREATE TABLE mobilier(
    FOREIGN KEY(nomElement__1_1_) REFERENCES elementFixe(nomElement)
 );
 
-CREATE TABLE équipement(
+CREATE TABLE equipement(
    nomElement__1_1_ VARCHAR(50),
    pieceOr INT,
    PRIMARY KEY(nomElement__1_1_),
    FOREIGN KEY(nomElement__1_1_) REFERENCES elementFixe(nomElement)
 );
 
-CREATE TABLE piège(
+CREATE TABLE piege(
    nomElement__1_1_ VARCHAR(50),
-   Catégorie VARCHAR(50),
+   Categorie VARCHAR(50),
    zoneEffet VARCHAR(50),
    diffDetection VARCHAR(50),
    diffEsquive VARCHAR(50),
@@ -42,14 +42,14 @@ CREATE TABLE EtreVivant(
    piece INT,
    pointAttaque INT,
    pointDeVie INT,
-   catégorie VARCHAR(50),
+   categorie VARCHAR(50),
    PRIMARY KEY(nomEtreVivant)
 );
 
 CREATE TABLE PNJ(
    nomEtreVivant__1_1_ VARCHAR(50),
    metier VARCHAR(50),
-   traitCaractère VARCHAR(50),
+   traitCaractere VARCHAR(50),
    phraseType VARCHAR(50),
    PRIMARY KEY(nomEtreVivant__1_1_),
    FOREIGN KEY(nomEtreVivant__1_1_) REFERENCES EtreVivant(nomEtreVivant)
@@ -73,7 +73,7 @@ CREATE TABLE objEquipement(
    nomElement__1_1_ VARCHAR(50),
    PRIMARY KEY(Id_objectif),
    FOREIGN KEY(Id_objectif) REFERENCES objectif(Id_objectif),
-   FOREIGN KEY(nomElement__1_1_) REFERENCES équipement(nomElement__1_1_)
+   FOREIGN KEY(nomElement__1_1_) REFERENCES equipement(nomElement__1_1_)
 );
 
 CREATE TABLE carte(
@@ -111,19 +111,19 @@ CREATE TABLE Zone(
 
 CREATE TABLE passageSecret(
    idPassage INT AUTO_INCREMENT,
-   difficultées INT,
+   difficultees INT,
    nomElement__1_1_ VARCHAR(50) NOT NULL,
    idZone INT NOT NULL,
    PRIMARY KEY(idPassage),
-   UNIQUE(difficultées),
+   UNIQUE(difficultees),
    FOREIGN KEY(nomElement__1_1_) REFERENCES mobilier(nomElement__1_1_),
    FOREIGN KEY(idZone) REFERENCES Zone(idZone)
 );
 
-CREATE TABLE Créature(
+CREATE TABLE creature(
    nomEtreVivant__1_1_ VARCHAR(50),
    climat VARCHAR(50),
-   niveauDifficulté INT,
+   niveauDifficulte INT,
    nomEnvironnement VARCHAR(50),
    PRIMARY KEY(nomEtreVivant__1_1_),
    FOREIGN KEY(nomEtreVivant__1_1_) REFERENCES EtreVivant(nomEtreVivant),
@@ -184,7 +184,7 @@ CREATE TABLE environnementSecondaire(
    nomEtreVivant__1_1_ VARCHAR(50),
    nomEnvironnement VARCHAR(50),
    PRIMARY KEY(nomEtreVivant__1_1_, nomEnvironnement),
-   FOREIGN KEY(nomEtreVivant__1_1_) REFERENCES Créature(nomEtreVivant__1_1_),
+   FOREIGN KEY(nomEtreVivant__1_1_) REFERENCES creature(nomEtreVivant__1_1_),
    FOREIGN KEY(nomEnvironnement) REFERENCES Environnement(nomEnvironnement)
 );
 
