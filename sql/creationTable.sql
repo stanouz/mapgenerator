@@ -5,7 +5,7 @@ CREATE TABLE parametre(
 );
 
 CREATE TABLE elementFixe(
-   idElement INT,
+   idElement INT AUTO_INCREMENT,
    nomElement VARCHAR(50),
    cheminImage VARCHAR(255),
    positionElementFixe_x INT,
@@ -40,7 +40,7 @@ CREATE TABLE piege(
 );
 
 CREATE TABLE EtreVivant(
-   idEtreVivant INT,
+   idEtreVivant INT AUTO_INCREMENT,
    nomEtreVivant VARCHAR(50),
    piece INT,
    pointAttaque INT,
