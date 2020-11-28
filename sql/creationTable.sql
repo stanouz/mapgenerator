@@ -81,9 +81,9 @@ CREATE TABLE objEquipement(
 
 CREATE TABLE carte(
    nomCarte VARCHAR(50),
-   descriptionCarte VARCHAR(255) NOT NULL,
-   dateCreationCarte DATE NOT NULL,
-   Id_objectif INT NOT NULL,
+   descriptionCarte VARCHAR(255) /*NOT*/ NULL,
+   dateCreationCarte DATE /*NOT*/ NULL,
+   Id_objectif INT /*NOT*/ NULL,
    PRIMARY KEY(nomCarte),
    FOREIGN KEY(Id_objectif) REFERENCES objectif(Id_objectif)
 );

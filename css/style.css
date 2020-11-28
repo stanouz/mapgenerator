@@ -26,13 +26,18 @@ div.logo{
 
 #divCentral {
     display: flex;
-	justify-content: space-between;
+	   justify-content: space-between;
 	align-items: stretch;
     margin: auto;
 	box-sizing: border-box;
 	height: 100%;
 }
 
+div.formGenerer{
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
 
 
 main {
