@@ -9,14 +9,14 @@
 <body>
 	<?php include('static/header.php'); ?>
 	
-
-	<div id="divCentral">
-		<main>
-			<h1> AJOUTER UNE PHOTO D'UNE CARTE GENERER </h1>
-		</main>
-	</div>
-
-    
+	<div>
+		<h3><?= $msg ?></h3>
+		<br/>
+		<li><?= $nbC ?></li>
+		<br/>
+		<li><?= $nbE ?></li>
+		<br/>
+    </div>	
 
 	<?php include('static/footer.php'); ?>
 </body>

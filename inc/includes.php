@@ -17,4 +17,30 @@ function deconnectBD($connexion) {
 	mysqli_close($connexion);
 }
 
+/*
+// execute une requette depuis un fichier sql
+function exeRequetteFile($fichier){
+	$requette = file_get_contents($fichier);
+	$array = explode(";\n", $requette);
+	$b = true;
+
+	for($i=0; $i< count($array); $i++){
+		$str = $array[$i];
+		if($str != ' '){
+			$str .= ';';
+		}
+	}
+}
+
+
+function executeSqlFile($file){
+    $req = file_get_contents($file);
+    $array = explode(PHP_EOL, $req);
+    foreach ($array as $sql) {
+        if ($sql != '') {
+            Sql($sql);
+        }
+    }
+ }
+*/
 ?>

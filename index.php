@@ -19,6 +19,7 @@ if(isset($_GET['page'])) {
 		
 }
 
+
 include('controleurs/' . $controleur . '.php');
 include('vues/' . $vue . '.php');
 
