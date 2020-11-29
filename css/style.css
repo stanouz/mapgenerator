@@ -92,3 +92,13 @@ li a:hover {
   background-color: #111;
 }
 
+
+/* Style pour le tableau de a propos */
+
+table, tr, td{
+	border: 1px solid black;
+}
+
+
+
+
