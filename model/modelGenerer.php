@@ -21,13 +21,14 @@ function createCarte($nomCarte,$nomContrib, $prenomContrib, $connexion){
 	}
 	
 	// Verif si contrib avec ce nom prenom existe, si non on en créé un
+	// Contrib a faire génération de la carte
 	$requete = "SELECT idContributrice FROM Contributrice WHERE nomContributrice='".$nomContributrice."'AND prenomContributrice='".$prenomContributrice."'";
 	
 	$idContrib = mysqli_query($connexion, $requete);
 	if($idContrib == FALSE){
 		$message = "Erreur pour le test des contributrices";
 	}
-	$message = mysqli_num_rows($idContrib);
+
 	
 	return $message;
 }

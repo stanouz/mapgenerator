@@ -27,6 +27,12 @@ function listColums($nomTable){
 	return $res;
 }
 
+function listTables(){
+	$connexion = getConnexionBD();
+	
+	$query = "SHOW TABLES";
+	return mysqli_query($connexion, $query);
+}
 
 
 

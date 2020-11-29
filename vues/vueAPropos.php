@@ -15,29 +15,15 @@
 			<label for="listeTables"> Choisir une table : </label>
 			<input list="liste" id="listeTables" name="listeTables" />
 			<datalist id="liste">
-				<option value="Carte"/>
-				<option value="Contient"/>
-				<option value="Contributrice"/>
-				<option value="Creature"/>
-				<option value="ElementFixe"/>
-				<option value="Environnement"/>
-				<option value="EnvironnementSecondaire"/>
-				<option value="Equipement"/>
-				<option value="EtreVivant"/>
-				<option value="GenererAPartir"/>
-				<option value="Mobilier"/>
-				<option value="Modifier"/>
-				<option value="Objectif"/>
-				<option value="ObjEquipement"/>
-				<option value="ObjZone"/>
-				<option value="OnTrouve"/>
-				<option value="Parametre"/>
-				<option value="PassageSecret"/>
-				<option value="Piege"/>
-				<option value="PNJ"/>
-				<option value="RelierZones"/>
-				<option value="Sauvegarde"/>
-				<option value="Zone"/>
+				<?php 
+					$tables = listTables();
+					while($table = mysqli_fetch_assoc($tables)){
+						echo '<option value="'.$table["Tables_in_p1909886"].'" />';
+					}
+				?>
+
+
+
 			</datalist>
 
 			<br/>
@@ -54,6 +40,7 @@
 		<p><?= $msg ?></p>
 		
 		<?php 
+			
 			if(isset($_POST['boutonAfficherInstance'])){
 
 				if($_POST['listeTables']!=""){
