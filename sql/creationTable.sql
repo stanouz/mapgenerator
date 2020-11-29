@@ -81,9 +81,9 @@ CREATE TABLE objEquipement(
 
 CREATE TABLE carte(
    nomCarte VARCHAR(50),
-   descriptionCarte VARCHAR(255) /*NOT*/ NULL,
-   dateCreationCarte DATE /*NOT*/ NULL,
-   Id_objectif INT /*NOT*/ NULL,
+   descriptionCarte VARCHAR(255),
+   dateCreationCarte DATE,
+   Id_objectif INT,
    PRIMARY KEY(nomCarte),
    FOREIGN KEY(Id_objectif) REFERENCES objectif(Id_objectif)
 );
@@ -93,9 +93,7 @@ CREATE TABLE contributeur_ice_(
    nomContributeur_ice_ VARCHAR(50) NOT NULL,
    prenomContributeur_ice_ VARCHAR(50) NOT NULL,
    dateInscriptionContributeur_ice_ TIMESTAMP NOT NULL,
-   nomCarte VARCHAR(50) NOT NULL,
-   PRIMARY KEY(Id_contributeur_ice_),
-   FOREIGN KEY(nomCarte) REFERENCES carte(nomCarte)
+   PRIMARY KEY(Id_contributeur_ice_)
 );
 
 CREATE TABLE Zone(
@@ -153,6 +151,8 @@ CREATE TABLE Generer_a_partir(
 CREATE TABLE Modifier(
    nomCarte VARCHAR(50),
    Id_contributeur_ice_ INT,
+   dateModification TIMESTAMP,
+   descriptionModif VARCHAR(250),
    PRIMARY KEY(nomCarte, Id_contributeur_ice_),
    FOREIGN KEY(nomCarte) REFERENCES carte(nomCarte),
    FOREIGN KEY(Id_contributeur_ice_) REFERENCES contributeur_ice_(Id_contributeur_ice_)
