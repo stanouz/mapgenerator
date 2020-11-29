@@ -1,10 +1,10 @@
-CREATE TABLE parametre(
+CREATE TABLE Parametre(
    nomPar VARCHAR(50),
    valeurPar INT,
    PRIMARY KEY(nomPar)
 );
 
-CREATE TABLE elementFixe(
+CREATE TABLE ElementFixe(
    idElement INT AUTO_INCREMENT,
    nomElement VARCHAR(50),
    cheminImage VARCHAR(255),
@@ -13,22 +13,22 @@ CREATE TABLE elementFixe(
    PRIMARY KEY(idElement)
 );
 
-CREATE TABLE mobilier(
+CREATE TABLE Mobilier(
    idMobilier INT,
    dimensions VARCHAR(10),
    deplacable BOOLEAN,
    PRIMARY KEY(idMobilier),
-   FOREIGN KEY(idMobilier) REFERENCES elementFixe(idElement)
+   FOREIGN KEY(idMobilier) REFERENCES ElementFixe(idElement)
 );
 
-CREATE TABLE equipement(
+CREATE TABLE Equipement(
    idEquipement INT,
    pieceOr INT,
    PRIMARY KEY(idEquipement),
-   FOREIGN KEY(idEquipement) REFERENCES elementFixe(idElement)
+   FOREIGN KEY(idEquipement) REFERENCES ElementFixe(idElement)
 );
 
-CREATE TABLE piege(
+CREATE TABLE Piege(
    idPiege INT,
    Categorie VARCHAR(50),
    zoneEffet VARCHAR(50),
@@ -36,7 +36,7 @@ CREATE TABLE piege(
    diffEsquive VARCHAR(50),
    diffDesamorsage VARCHAR(50),
    PRIMARY KEY(idPiege),
-   FOREIGN KEY(idPiege) REFERENCES elementFixe(idElement)
+   FOREIGN KEY(idPiege) REFERENCES ElementFixe(idElement)
 );
 
 CREATE TABLE EtreVivant(
@@ -64,36 +64,39 @@ CREATE TABLE Environnement(
    PRIMARY KEY(nomEnvironnement)
 );
 
-CREATE TABLE objectif(
-   Id_objectif INT AUTO_INCREMENT,
-   type INT,
-   PRIMARY KEY(Id_objectif)
+CREATE TABLE Objectif(
+   idObjectif INT AUTO_INCREMENT,
+   type VARCHAR(20),
+   PRIMARY KEY(idObjectif)
 );
 
-CREATE TABLE objEquipement(
-   Id_objectif INT,
+CREATE TABLE ObjEquipement(
+   idObjEquip INT,
    nom VARCHAR(50),
    idEquipement INT,
-   PRIMARY KEY(Id_objectif),
-   FOREIGN KEY(Id_objectif) REFERENCES objectif(Id_objectif),
-   FOREIGN KEY(idEquipement) REFERENCES equipement(idEquipement)
+   PRIMARY KEY(idObjEquip),
+   FOREIGN KEY(idObjEquip) REFERENCES Objectif(idObjectif),
+   FOREIGN KEY(idEquipement) REFERENCES Equipement(idEquipement)
 );
 
-CREATE TABLE carte(
+
+CREATE TABLE Contributrice(
+   idContributrice INT AUTO_INCREMENT,
+   nomContributrice VARCHAR(50) NOT NULL,
+   prenomContributrice VARCHAR(50) NOT NULL,
+   dateInscriptionContributrice DATE DEFAULT CURDATE(),
+   PRIMARY KEY(idContributrice)
+);
+
+CREATE TABLE Carte(
    nomCarte VARCHAR(50),
    descriptionCarte VARCHAR(255),
-   dateCreationCarte DATE,
-   Id_objectif INT,
+   dateCreationCarte DATE DEFAULT CURDATE(),
+   idObjectif INT,
+   idCreateur INT,
    PRIMARY KEY(nomCarte),
-   FOREIGN KEY(Id_objectif) REFERENCES objectif(Id_objectif)
-);
-
-CREATE TABLE contributeur_ice_(
-   Id_contributeur_ice_ INT AUTO_INCREMENT,
-   nomContributeur_ice_ VARCHAR(50) NOT NULL,
-   prenomContributeur_ice_ VARCHAR(50) NOT NULL,
-   dateInscriptionContributeur_ice_ TIMESTAMP NOT NULL,
-   PRIMARY KEY(Id_contributeur_ice_)
+   FOREIGN KEY(idObjectif) REFERENCES Objectif(idObjectif),
+   FOREIGN KEY(idCreateur) REFERENCES Contributrice(idContributrice)
 );
 
 CREATE TABLE Zone(
@@ -107,21 +110,21 @@ CREATE TABLE Zone(
    nomCarte VARCHAR(50),
    PRIMARY KEY(idZone),
    FOREIGN KEY(nomEnvironnement) REFERENCES Environnement(nomEnvironnement),
-   FOREIGN KEY(nomCarte) REFERENCES carte(nomCarte)
+   FOREIGN KEY(nomCarte) REFERENCES Carte(nomCarte)
 );
 
-CREATE TABLE passageSecret(
+CREATE TABLE PassageSecret(
    idPassage INT AUTO_INCREMENT,
    difficultees INT,
    idMobilierPS INT,
    idZone INT NOT NULL,
    PRIMARY KEY(idPassage),
    UNIQUE(difficultees),
-   FOREIGN KEY(idMobilierPS) REFERENCES mobilier(idMobilier),
+   FOREIGN KEY(idMobilierPS) REFERENCES Mobilier(idMobilier),
    FOREIGN KEY(idZone) REFERENCES Zone(idZone)
 );
 
-CREATE TABLE creature(
+CREATE TABLE Creature(
    idCreature INT,
    climat VARCHAR(50),
    niveauDifficulte INT,
@@ -131,51 +134,51 @@ CREATE TABLE creature(
    FOREIGN KEY(nomEnvCreature) REFERENCES Environnement(nomEnvironnement)
 );
 
-CREATE TABLE objZone(
-   Id_objectif INT,
+CREATE TABLE ObjZone(
+   idObjZone INT,
    nom VARCHAR(50),
    idZone INT,
-   PRIMARY KEY(Id_objectif),
-   FOREIGN KEY(Id_objectif) REFERENCES objectif(Id_objectif),
+   PRIMARY KEY(idObjZone),
+   FOREIGN KEY(idObjZone) REFERENCES Objectif(idObjectif),
    FOREIGN KEY(idZone) REFERENCES Zone(idZone)
 );
 
-CREATE TABLE Generer_a_partir(
+CREATE TABLE GenererAPartir(
    nomCarte VARCHAR(50),
    nomPar VARCHAR(50),
    PRIMARY KEY(nomCarte, nomPar),
-   FOREIGN KEY(nomCarte) REFERENCES carte(nomCarte),
-   FOREIGN KEY(nomPar) REFERENCES parametre(nomPar)
+   FOREIGN KEY(nomCarte) REFERENCES Carte(nomCarte),
+   FOREIGN KEY(nomPar) REFERENCES Parametre(nomPar)
 );
 
 CREATE TABLE Modifier(
    nomCarte VARCHAR(50),
-   Id_contributeur_ice_ INT,
-   dateModification TIMESTAMP,
+   idContributrice INT,
+   dateModification DATE DEFAULT CURDATE(),
    descriptionModif VARCHAR(250),
-   PRIMARY KEY(nomCarte, Id_contributeur_ice_),
-   FOREIGN KEY(nomCarte) REFERENCES carte(nomCarte),
-   FOREIGN KEY(Id_contributeur_ice_) REFERENCES contributeur_ice_(Id_contributeur_ice_)
+   PRIMARY KEY(nomCarte, idContributrice),
+   FOREIGN KEY(nomCarte) REFERENCES Carte(nomCarte),
+   FOREIGN KEY(idContributrice) REFERENCES Contributrice(idContributrice)
 );
 
-CREATE TABLE Relier_a(
-   idZone INT,
-   idZone_1 INT,
+CREATE TABLE RelierZones(
+   idZoneA INT,
+   idZoneB INT,
    direction VARCHAR(50),
-   PRIMARY KEY(idZone, idZone_1),
-   FOREIGN KEY(idZone) REFERENCES Zone(idZone),
-   FOREIGN KEY(idZone_1) REFERENCES Zone(idZone)
+   PRIMARY KEY(idZoneA, idZoneB),
+   FOREIGN KEY(idZoneA) REFERENCES Zone(idZone),
+   FOREIGN KEY(idZoneB) REFERENCES Zone(idZone)
 );
 
-CREATE TABLE on_trouve(
+CREATE TABLE OnTrouve(
    idZone INT,
    idElement INT,
    PRIMARY KEY(idZone, idElement),
    FOREIGN KEY(idZone) REFERENCES Zone(idZone),
-   FOREIGN KEY(idElement) REFERENCES elementFixe(idElement)
+   FOREIGN KEY(idElement) REFERENCES ElementFixe(idElement)
 );
 
-CREATE TABLE contient(
+CREATE TABLE Contient(
    idZone INT,
    idEtreVivant INT,
    PRIMARY KEY(idZone, idEtreVivant),
@@ -183,11 +186,11 @@ CREATE TABLE contient(
    FOREIGN KEY(idEtreVivant) REFERENCES EtreVivant(idEtreVivant)
 );
 
-CREATE TABLE environnementSecondaire(
+CREATE TABLE EnvironnementSecondaire(
    idCreature INT,
    nomEnvironnement VARCHAR(50),
    PRIMARY KEY(idCreature, nomEnvironnement),
-   FOREIGN KEY(idCreature) REFERENCES creature(idCreature),
+   FOREIGN KEY(idCreature) REFERENCES Creature(idCreature),
    FOREIGN KEY(nomEnvironnement) REFERENCES Environnement(nomEnvironnement)
 );
 
@@ -195,8 +198,8 @@ CREATE TABLE Sauvegarde(
    nomPar VARCHAR(50),
    nomPar_1 VARCHAR(50),
    valeur INT,
-   dateSauvegarde TIMESTAMP,
+   dateSauvegarde DATE DEFAULT CURDATE(),
    PRIMARY KEY(nomPar, nomPar_1),
-   FOREIGN KEY(nomPar) REFERENCES parametre(nomPar),
-   FOREIGN KEY(nomPar_1) REFERENCES parametre(nomPar)
+   FOREIGN KEY(nomPar) REFERENCES Parametre(nomPar),
+   FOREIGN KEY(nomPar_1) REFERENCES Parametre(nomPar)
 );

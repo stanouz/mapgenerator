@@ -1,29 +1,37 @@
 <?php
 
-function createCarte($nomCarte, $connexion){
-		
+function createCarte($nomCarte,$nomContrib, $prenomContrib, $connexion){
+	
 	$nomCarte = mysqli_real_escape_string($connexion, $nomCarte);
-
-	$requete = "SELECT nomCarte FROM carte WHERE nomCarte='".$nomCarte."'";
-
-	// On verifie qu'aucune carte n'a ce nom car clé primaire
+	$nomContrib = mysqli_real_escape_string($connexion, $nomContrib);
+	$prenomContrib = mysqli_real_escape_string($connexion, $prenomContrib);
+	// Verif si aucune carte existante avec ce nom
+	$requete = "SELECT nomCarte FROM Carte WHERE nomCarte='".$nomCarte."'";
 	$verif = mysqli_query($connexion, $requete);
 
 	if($verif == FALSE || mysqli_num_rows($verif) == 0){
-		$requete = "INSERT INTO carte(nomCarte, dateCreationCarte) VALUES ('".$nomCarte."', CURDATE())";
-		// on insert le nom dans la table
+		$requete = "INSERT INTO Carte(nomCarte) VALUES ('".$nomCarte."')";
 		$insertion = mysqli_query($connexion, $requete);
 		if($insertion == FALSE) {
-			$message = "Erreur lors de l'insertion de la carte $nomCarte.";
+			$message = "Erreur lors de l'insertion de la carte $nomCarte.\n";
 		}
 	}
 	else {
-		$message = "Une carte existe déjà avec ce nom ($nomCarte).";
+		$message = "Une carte existe déjà avec ce nom : $nomCarte.\n";
 	}
+	
+	// Verif si contrib avec ce nom prenom existe, si non on en créé un
+	$requete = "SELECT idContributrice FROM Contributrice WHERE nomContributrice='".$nomContributrice."'AND prenomContributrice='".$prenomContributrice."'";
+	
+	$idContrib = mysqli_query($connexion, $requete);
+	if($idContrib == FALSE){
+		$message = "Erreur pour le test des contributrices";
+	}
+	$message = mysqli_num_rows($idContrib);
 	
 	return $message;
 }
-/*
+
 function createContrib($nom, $prenom, $connexion){
 	$nom = mysqli_real_escape_string($connexion, $nom);
 	$prenom = mysqli_real_escape_string($connexion, $prenom);
@@ -32,7 +40,7 @@ function createContrib($nom, $prenom, $connexion){
 	$nb = mysqli_query($connexion, $requette);
 
 	return $nb;
-*/
+
 }
 
 

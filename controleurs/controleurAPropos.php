@@ -1,21 +1,26 @@
 <?php
-	$connexion = getConnexionBD();
+
+
+$connexion = getConnexionBD();
 	
 
-	$requette = "SELECT COUNT(idCreature) AS nbC FROM creature";
-	$requette2=	 "SELECT COUNT(nomEnvironnement) AS nbE FROM Environnement";
-	$res = mysqli_query($connexion, $requette);
-	$res2 = mysqli_query($connexion, $requette2);
-	if($res == FALSE){
-		$msg = "Probleme lors de la lecture des données !";
-	}
-	else {
-		$msg = "Notre base de données contient :";
-		$nb = mysqli_fetch_assoc($res);
-		$nb2 = mysqli_fetch_assoc($res2);
-		$nbC = $nb['nbC']." créatures";
-		$nbE = $nb2['nbE']." environnements";
+if(isset($_POST['boutonAfficherInstance'])){
 
+	if($_POST['listeTables']!=""){
+		$nb = nombreInstancesTable($_POST['listeTables'], $connexion);
+
+		if($nb == 0){
+			$msg = "Aucune instance dans la table ".$_POST['listeTables'].".";
+		}			
+		else if ($nb == 1){
+			$msg = $nb." instance dans la table ".$_POST['listeTables'].".";
+		}			
+		else{
+			$msg = $nb." instances dans la table ".$_POST['listeTables'].".";
+		}		
 	}
+}
+
+	
 
 ?>

@@ -1,3 +1,3 @@
-DROP TABLE `contient`, `environnementSecondaire`, `Generer_a_partir`, `Modifier`, `objEquipement`, `objZone`, `on_trouve`, `passageSecret`, `piege`, `PNJ`, `Relier_a`, `Sauvegarde`, `Zone`;
-DROP TABLE `contributeur_ice_`, `creature`, `Environnement`, `equipement`, `EtreVivant`,  `mobilier`, `parametre`;
-DROP TABLE `carte`, `elementFixe`,  `objectif`;
+DROP TABLE `Contient`, `EnvironnementSecondaire`, `GenererAPartir`, `Modifier`, `ObjEquipement`, `ObjZone`, `OnTrouve`, `PassageSecret`, `Piege`, `PNJ`, `RelierZones`, `Sauvegarde`, `Zone`;
+DROP TABLE `Carte`, `Creature`, `Environnement`, `Equipement`, `EtreVivant`,  `Mobilier`, `Parametre`;
+DROP TABLE `Contributrice`,  `Objectif`, `ElementFixe`; 

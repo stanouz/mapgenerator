@@ -1,5 +1,21 @@
-INSERT INTO EtreVivant VALUES(1, 'nain', 5, 8, 2, 'montagnard');
-INSERT INTO PNJ VALUES(1, 'mineur', 'grincheux', 'Salut ça va ?');
+INSERT INTO EtreVivant(nomEtreVivant, piece, pointAttaque, pointDeVie, categorie) 
+VALUES('nain', 5, 8, 2, 'montagnard');
 
-INSERT INTO EtreVivant VALUES(2, 'paul', 3, 2, 1, 'citadin');
-INSERT INTO PNJ VALUES(2, 'marchand', 'souriant', 'Venez voir mon magasin!');
+INSERT INTO PNJ 
+VALUES((SELECT MAX(idEtreVivant)
+			FROM EtreVivant 
+			WHERE nomEtreVivant='nain'),	
+	   'mineur',
+	   'grincheux',
+	   'Salut ça va ?');
+
+INSERT INTO EtreVivant(nomEtreVivant, piece, pointAttaque, pointDeVie, categorie) 
+VALUES('Paul', 4, 2, 7, 'citadin');
+
+INSERT INTO PNJ 
+VALUES((SELECT MAX(idEtreVivant)
+			FROM EtreVivant 
+			WHERE nomEtreVivant='Paul'),	
+	   'marchand',
+	   'Heureux',
+	   'Venez dans ma boutique !');

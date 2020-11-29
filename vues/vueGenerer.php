@@ -14,8 +14,8 @@
 			<label for="nomContrib">Nom : </label>
 			<input type="text" name="nomContrib" id="nomContrib" placeholder="Saisir votre nom" required />
 			<br/>
-			<label for="prénomContrib">Prénom : </label>
-			<input type="text" name="prénomContrib" id="prénomContrib" placeholder="Saisir votre prénom" required />
+			<label for="prenomContrib">Prénom : </label>
+			<input type="text" name="prenomContrib" id="prenomContrib" placeholder="Saisir votre prénom" required />
 			<br/>
 			<label for="nomCarte">Nom de la carte : </label>
 			<input type="text" name="nomCarte" id="nomCarte" placeholder="Saisir le nom de la carte" required />

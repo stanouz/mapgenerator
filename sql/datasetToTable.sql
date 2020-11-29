@@ -62,27 +62,27 @@ WHERE type='créature';
 =============Remplissage de la table créature=============
 */
 
-INSERT INTO creature(idCreature)
+INSERT INTO Creature(idCreature)
 SELECT id
 FROM dataset.DonneesFournies
 WHERE type = 'créature';
 
 
-UPDATE creature
+UPDATE Creature
 SET climat=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'climat=', -1), ',', 1)
 FROM dataset.DonneesFournies
     WHERE id = idCreature);
 
 
-UPDATE creature
+UPDATE Creature
 SET niveauDifficulte=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'difficulté=', -1), ',', 1)
 FROM dataset.DonneesFournies
     WHERE id = idCreature);
 
 
-UPDATE creature
+UPDATE Creature
 SET nomEnvCreature=
 (SELECT DISTINCT(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'environnement=', -1), ',', 1))
 FROM dataset.DonneesFournies
@@ -104,14 +104,14 @@ FROM dataset.DonneesFournies
 WHERE type='piège' OR type='mobilier';
 */
 
-INSERT INTO elementFixe(idElement, nomElement)
+INSERT INTO ElementFixe(idElement, nomElement)
 SELECT id, nom
 FROM dataset.DonneesFournies
 WHERE type='piège' OR type='mobilier';
 
 
 
-UPDATE elementFixe
+UPDATE ElementFixe
 SET cheminImage=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'image=', -1), ',', 1)
 FROM dataset.DonneesFournies
@@ -122,39 +122,39 @@ FROM dataset.DonneesFournies
 =============Remplissage de la table piege=============
 */
 
-INSERT INTO piege(idPiege)
+INSERT INTO Piege(idPiege)
 SELECT id 
 FROM dataset.DonneesFournies
 WHERE type='piège';
 
 
-UPDATE piege
+UPDATE Piege
 SET Categorie=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'catégorie=', -1), ',', 1)
 FROM dataset.DonneesFournies
     WHERE id = idPiege);
 
 
-UPDATE piege
+UPDATE Piege
 SET zoneEffet=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'zone=', -1), ',', 1), 'mètre', 1)
 FROM dataset.DonneesFournies
     WHERE id = idPiege);
 
 
-UPDATE piege
+UPDATE Piege
 SET diffDetection=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'detecter=', -1), ',', 1)
 FROM dataset.DonneesFournies
     WHERE id = idPiege);
     
-UPDATE piege
+UPDATE Piege
 SET diffDesamorsage=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'desamorcer=', -1), ',', 1)
 FROM dataset.DonneesFournies
     WHERE id = idPiege);
     
-UPDATE piege
+UPDATE Piege
 SET diffEsquive=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'esquiver=', -1), ',', 1)
 FROM dataset.DonneesFournies
@@ -165,13 +165,13 @@ FROM dataset.DonneesFournies
 =============Remplissage de la table mobilier=============
 */
 
-INSERT INTO mobilier(idMobilier)
+INSERT INTO Mobilier(idMobilier)
 SELECT id 
 FROM dataset.DonneesFournies
 WHERE type='mobilier';
 
 
-UPDATE mobilier
+UPDATE Mobilier
 SET deplacable=
 CASE 
     WHEN (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'deplacable=', -1), ',', 1)
@@ -184,7 +184,7 @@ CASE
 END;
 
 
-UPDATE mobilier
+UPDATE Mobilier
 SET dimensions=
 (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'dimensions=', -1), ',', 1)
 FROM dataset.DonneesFournies
