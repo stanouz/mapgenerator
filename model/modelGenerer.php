@@ -8,7 +8,7 @@ function createCarte($nomCarte,$nomContrib, $prenomContrib, $connexion){
 	// Verif si aucune carte existante avec ce nom
 	$requete = "SELECT nomCarte FROM Carte WHERE nomCarte='".$nomCarte."'";
 	$verif = mysqli_query($connexion, $requete);
-
+	$message="";
 	if($verif == FALSE || mysqli_num_rows($verif) == 0){
 		$requete = "INSERT INTO Carte(nomCarte) VALUES ('".$nomCarte."')";
 		$insertion = mysqli_query($connexion, $requete);
@@ -22,7 +22,7 @@ function createCarte($nomCarte,$nomContrib, $prenomContrib, $connexion){
 	
 	// Verif si contrib avec ce nom prenom existe, si non on en créé un
 	// Contrib a faire génération de la carte
-	$requete = "SELECT idContributrice FROM Contributrice WHERE nomContributrice='".$nomContributrice."'AND prenomContributrice='".$prenomContributrice."'";
+	$requete = "SELECT idContributrice FROM Contributrice WHERE nomContributrice='".$nomContrib."'AND prenomContributrice='".$prenomContrib."'";
 	
 	$idContrib = mysqli_query($connexion, $requete);
 	if($idContrib == FALSE){

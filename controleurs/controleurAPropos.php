@@ -2,7 +2,7 @@
 
 
 $connexion = getConnexionBD();
-$msg = "test";
+$msg = "";
 
 if(isset($_POST['boutonAfficherInstance'])){
 
