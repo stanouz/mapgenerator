@@ -34,18 +34,21 @@
 			<br/>
 
 			<input type="submit" name="boutonAfficherInstance" value="Afficher"/>
-		
+			
 
 		</form>
-		<p><?= $msg ?></p>
+		<p> <?= $msg ?></p>
+		
 		
 		<?php 
 			
 			if(isset($_POST['boutonAfficherInstance'])){
-
+				
 				if($_POST['listeTables']!=""){
-					if($_POST['showInstance']==TRUE){
-						showTable($_POST['listeTables']);
+					if(isset($_POST['showInstance']) && $nb!=0){
+						if($_POST['showInstance']==TRUE){
+							showTable($_POST['listeTables']);
+						}
 					}
 				}
 
