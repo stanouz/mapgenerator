@@ -13,18 +13,18 @@
 		<form method="post" action="#">
 
 			<label for="listeTables"> Choisir une table : </label>
-			<input list="liste" id="listeTables" name="listeTables" />
-			<datalist id="liste">
+			
+			<select id="listeTables" name="listeTables">
+				<option value="">--Selectionner une table--</option>
 				<?php 
 					$tables = listTables();
 					while($table = mysqli_fetch_assoc($tables)){
-						echo '<option value="'.$table["Tables_in_p1909886"].'" />';
+						echo '<option value="'.$table["Tables_in_p1909886"].'">'.$table["Tables_in_p1909886"].'</option>';
 					}
 				?>
 
 
-
-			</datalist>
+			</select>
 
 			<br/>
 
