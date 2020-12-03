@@ -54,7 +54,7 @@ function showTable($nomTable){
 
 		echo "<tr>";
 		while($row = mysqli_fetch_assoc($column)){
-			echo "<td>".$row["Field"]."</td>";
+			echo "<td class='nomColonne'>".$row["Field"]."</td>";
 		}
 		echo "</tr>";
 

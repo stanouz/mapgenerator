@@ -10,11 +10,11 @@
 	<?php include('static/header.php'); ?>
 	
 	<main>
-		<form method="post" action="#">
+		<form method="post" action="#" class="Apropos">
 
 			<label for="listeTables"> Choisir une table : </label>
-			
-			<select id="listeTables" name="listeTables">
+			<br/>
+			<select id="listeTables" name="listeTables" class="listTables">
 				<option value="">--Selectionner une table--</option>
 				<?php 
 					$tables = listTables();
@@ -28,35 +28,34 @@
 
 			<br/>
 
-			<label for="showInstance"> Afficher les instances des tables :</label>
+			<label for="showInstance"> Afficher les instances de la table :</label>
 			<input type="checkbox" id="showInstance" name="showInstance"/>
 
 			<br/>
 
-			<input type="submit" name="boutonAfficherInstance" value="Afficher"/>
+			<input type="submit" name="boutonAfficherInstance" value="Afficher" class="buttonShowTable"/>
 			
 
 		</form>
-		<p> <?= $msg ?></p>
-		
-		
-		<?php 
+		<div class="tables">
+			<p> <?= $msg ?></p>
 			
-			if(isset($_POST['boutonAfficherInstance'])){
+			
+			<?php 
 				
-				if($_POST['listeTables']!=""){
-					if(isset($_POST['showInstance']) && $nb!=0){
-						if($_POST['showInstance']==TRUE){
-							showTable($_POST['listeTables']);
+				if(isset($_POST['boutonAfficherInstance'])){
+					
+					if($_POST['listeTables']!=""){
+						if(isset($_POST['showInstance']) && $nb!=0){
+							if($_POST['showInstance']==TRUE){
+								showTable($_POST['listeTables']);
+							}
 						}
-					}
+					}	 
 				}
-
-				 
-			}
-
-		
-		?>
+			
+			?>
+		</div>
 		
 
 	</main>

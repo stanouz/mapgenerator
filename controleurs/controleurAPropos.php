@@ -13,10 +13,10 @@ if(isset($_POST['boutonAfficherInstance'])){
 			$msg = "Aucune instance dans la table ".$_POST['listeTables'].".";
 		}			
 		else if ($nb == 1){
-			$msg = $nb." instance dans la table ".$_POST['listeTables'].".";
+			$msg = "Il y a ".$nb." instance dans la table ".$_POST['listeTables'].".";
 		}			
 		else{
-			$msg = $nb." instances dans la table ".$_POST['listeTables'].".";
+			$msg = "Il y a ".$nb." instances dans la table ".$_POST['listeTables'].".";
 		}		
 	}
 }

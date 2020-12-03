@@ -41,20 +41,15 @@ FROM dataset.DonneesFournies
 =============Remplissage de la table Environnement=============
 */
 
-/*
-    /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\     
-    A AMELIORER CAR GARDE L'ENVIRONNEMENT 'Unknown'
-    /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\
-*/
 
 INSERT INTO Environnement(nomEnvironnement)
-SELECT DISTINCT(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'environnement=', -1), ',', 1))
+SELECT DISTINCT(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'environnement=', -1), ',', 1)) 
 FROM dataset.DonneesFournies
 WHERE type='créature';
 
 
-
-
+DELETE FROM Environnement
+WHERE nomEnvironnement='Unknown';
 
 
 
@@ -82,27 +77,23 @@ FROM dataset.DonneesFournies
     WHERE id = idCreature);
 
 
+
+
 UPDATE Creature
 SET nomEnvCreature=
-(SELECT DISTINCT(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'environnement=', -1), ',', 1))
+(SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'environnement=', -1), ',', 1)
 FROM dataset.DonneesFournies
-    WHERE id = idCreature);
-
+WHERE id = idCreature AND 
+        (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'environnement=', -1), ',', 1)
+         FROM dataset.DonneesFournies
+         WHERE id = idCreature) != 'Unknown'
+);
 
 /*
 =============Remplissage de la table elementFixe=============
 */
 
-/*
-Pour remise à 0 des id mais pas sûr que ce soit nécessaire donc voir instruction suivante !
 
-INSERT INTO elementFixe(idElement)
-SELECT id-(SELECT min(id) 
-            FROM dataset.DonneesFournies                  
-            WHERE type='piège' OR type='mobilier')+1
-FROM dataset.DonneesFournies
-WHERE type='piège' OR type='mobilier';
-*/
 
 INSERT INTO ElementFixe(idElement, nomElement)
 SELECT id, nom
@@ -136,8 +127,14 @@ FROM dataset.DonneesFournies
 
 
 UPDATE Piege
-SET zoneEffet=
-(SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'zone=', -1), ',', 1), 'mètre', 1)
+SET zoneEffetLongueur=
+(SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'zone=', -1), ',', 1), 'mètre', 1),'x', 1)
+FROM dataset.DonneesFournies
+    WHERE id = idPiege);
+
+UPDATE Piege
+SET zoneEffetLargeur=
+(SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'zone=', -1), ',', 1), 'mètre', 1),'x', -1)
 FROM dataset.DonneesFournies
     WHERE id = idPiege);
 
@@ -185,8 +182,14 @@ END;
 
 
 UPDATE Mobilier
-SET dimensions=
-(SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'dimensions=', -1), ',', 1)
+SET longueur=
+(SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'dimensions=', -1), ',', 1), ',', 1),'x', 1)
+FROM dataset.DonneesFournies
+    WHERE id = idMobilier);
+
+UPDATE Mobilier
+SET largeur=
+(SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(attributs, 'dimensions=', -1), ',', 1), ',', 1),'x', -1)
 FROM dataset.DonneesFournies
     WHERE id = idMobilier);
 

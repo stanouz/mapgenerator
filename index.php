@@ -21,9 +21,9 @@ if(isset($_GET['page'])) {
 		
 }
 
-require('model/'. $model . '.php');
-require('controleurs/' . $controleur . '.php');
-require('vues/' . $vue . '.php');
+include('model/'. $model . '.php');
+include('controleurs/' . $controleur . '.php');
+include('vues/' . $vue . '.php');
 
 
 ?>

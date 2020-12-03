@@ -15,7 +15,8 @@ CREATE TABLE ElementFixe(
 
 CREATE TABLE Mobilier(
    idMobilier INT,
-   dimensions VARCHAR(10),
+   largeur INT,
+   longueur INT,
    deplacable BOOLEAN,
    PRIMARY KEY(idMobilier),
    FOREIGN KEY(idMobilier) REFERENCES ElementFixe(idElement)
@@ -31,7 +32,8 @@ CREATE TABLE Equipement(
 CREATE TABLE Piege(
    idPiege INT,
    Categorie VARCHAR(50),
-   zoneEffet VARCHAR(50),
+   zoneEffetLargeur INT,
+   zoneEffetLongueur INT,
    diffDetection VARCHAR(50),
    diffEsquive VARCHAR(50),
    diffDesamorsage VARCHAR(50),
@@ -60,7 +62,7 @@ CREATE TABLE PNJ(
 
 CREATE TABLE Environnement(
    nomEnvironnement VARCHAR(50),
-   descriptionEnvironnement VARCHAR(50),
+   descriptionEnvironnement VARCHAR(250),
    PRIMARY KEY(nomEnvironnement)
 );
 
@@ -128,7 +130,7 @@ CREATE TABLE Creature(
    idCreature INT,
    climat VARCHAR(50),
    niveauDifficulte INT,
-   nomEnvCreature VARCHAR(50),
+   nomEnvCreature VARCHAR(50) DEFAULT NULL,
    PRIMARY KEY(idCreature),
    FOREIGN KEY(idCreature) REFERENCES EtreVivant(idEtreVivant),
    FOREIGN KEY(nomEnvCreature) REFERENCES Environnement(nomEnvironnement)
