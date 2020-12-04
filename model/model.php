@@ -43,8 +43,8 @@ function listTables(){
 function getTable($nomTable){
 	$connexion = getConnexionBD();
 	
-
-
+	$nomTable = mysqli_real_escape_string($connexion, $nomTable);
+	
 	$query = "SELECT * FROM ".$nomTable;
 	$res = mysqli_query($connexion, $query);
 
