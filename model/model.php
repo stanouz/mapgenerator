@@ -1,5 +1,64 @@
 <?php
 
+
+// Affichage des données 
+
+	
+function nombreInstancesTable($nomTable)
+{
+
+	$connexion = getConnexionBD();
+
+	$nomTable = mysqli_real_escape_string($connexion, $nomTable);
+	$query = "SELECT COUNT(*) AS nb FROM ".$nomTable;
+
+	$res = mysqli_query($connexion, $query);
+	if($res == TRUE){
+		$nb = mysqli_fetch_assoc($res);
+	}
+	return $nb['nb'];
+}
+
+
+function listColums($nomTable){
+	$connexion = getConnexionBD();
+
+	$query = "SHOW COLUMNS FROM ".$nomTable;
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res);
+}
+
+function listTables(){
+	$connexion = getConnexionBD();
+	
+	$query = "SHOW TABLES";
+	$res = mysqli_query($connexion, $query);
+	return mysqli_fetch_all($res);
+}
+
+
+
+function getTable($nomTable){
+	$connexion = getConnexionBD();
+	
+
+
+	$query = "SELECT * FROM ".$nomTable;
+	$res = mysqli_query($connexion, $query);
+
+	
+	return mysqli_fetch_all($res);
+}
+
+
+
+
+// Creation de carte 
+
+
+
 function createCarte($nomCarte,$nomContrib, $prenomContrib, $connexion){
 	
 	$nomCarte = mysqli_real_escape_string($connexion, $nomCarte);

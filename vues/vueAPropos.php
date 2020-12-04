@@ -17,9 +17,8 @@
 			<select id="listeTables" name="listeTables" class="listTables">
 				<option value="">--Selectionner une table--</option>
 				<?php 
-					$tables = listTables();
-					while($table = mysqli_fetch_assoc($tables)){
-						echo '<option value="'.$table["Tables_in_p1909886"].'">'.$table["Tables_in_p1909886"].'</option>';
+					foreach ($tables as $table) {
+						echo '<option value="'.$table[0].'">'.$table[0].'</option>';
 					}
 				?>
 
@@ -28,7 +27,7 @@
 
 			<br/>
 
-			<label for="showInstance"> Afficher les instances de la table :</label>
+			<label for="showInstance"> Ne pas afficher les instances de la table :</label>
 			<input type="checkbox" id="showInstance" name="showInstance"/>
 
 			<br/>
@@ -38,23 +37,38 @@
 
 		</form>
 		<div class="tables">
-			<p> <?= $msg ?></p>
+			<p> <?= $nbInstance ?></p>
 			
 			
-			<?php 
-				
-				if(isset($_POST['boutonAfficherInstance'])){
+			
+			
+			<?php
+				$table = getTable('Environnement');
+				$attribut = listColums('Environnement');
 					
-					if($_POST['listeTables']!=""){
-						if(isset($_POST['showInstance']) && $nb!=0){
-							if($_POST['showInstance']==TRUE){
-								showTable($_POST['listeTables']);
-							}
+
+					echo "<table>";
+				
+					echo "<tr>";
+					foreach ($attribut as $att) {
+						echo '<td class="nomColonne">'.$att[0].'</td>';
+					}
+					echo "</tr>";
+
+
+					foreach ($table as $ligne) {
+						echo "<tr>";
+						foreach ($ligne as $case) {
+							echo "<td>".$case."</td>";
 						}
-					}	 
-				}
-			
+						echo "</tr>";
+					}
+					echo "</table>";
+				
+					
 			?>
+		
+	
 		</div>
 		
 
