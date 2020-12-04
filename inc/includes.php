@@ -1,6 +1,6 @@
 <?php 
 $nomSite = "Jeu de rôle";
-$baseline = "Générer une carte !";
+$baseline = "Générez votre carte !";
 
 // connexion à la BD, retourne un lien de connexion
 function getConnexionBD() {
