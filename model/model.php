@@ -55,11 +55,43 @@ function getTable($nomTable){
 
 
 
+// Générer une zone
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Creation de carte 
 
 
 
-function createCarte($nomCarte,$nomContrib, $prenomContrib, $connexion){
+function createCarte($nomCarte,$nomContrib, $prenomContrib){
+	$connexion = getConnexionBD();
 	
 	$nomCarte = mysqli_real_escape_string($connexion, $nomCarte);
 	$nomContrib = mysqli_real_escape_string($connexion, $nomContrib);

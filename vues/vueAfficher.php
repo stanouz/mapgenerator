@@ -10,7 +10,7 @@
 	<?php include('static/header.php'); ?>
 	
 	<main>
-		<form method="post" action="#" class="Apropos">
+		<form method="post" action="#" class="Afficher">
 
 			<label for="listeTables"> Choisir une table : </label>
 			<br/>
