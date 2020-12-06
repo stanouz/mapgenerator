@@ -58,29 +58,34 @@ function getTable($nomTable){
 // Générer une zone
 
 
+function getAttribut($nomTable, $nomAttribut){
+	$connexion = getConnexionBD();
+
+	$nomTable = mysqli_real_escape_string($connexion, $nomTable);
+	$nomAttribut = mysqli_real_escape_string($connexion, $nomAttribut);
+
+	$query = "SELECT ".$nomAttribut." FROM ".$nomTable;
+
+	$res = mysqli_query($connexion, $query);
 
 
+	return mysqli_fetch_all($res);
+}
 
 
+function initZone($param){
+	$connexion = getConnexionBD();
+
+	$description = mysqli_real_escape_string($connexion, $param['description']);
+	$environnement = mysqli_real_escape_string($connexion, $param['environnement']);
 
 
+	$query = "INSERT INTO Zone(descriptionZone, longueurZone, largeurZone, nomEnvironnement) VALUES ('".$description."', ".$param['longueurZone'].", ".$param['largeurZone'].", '".$environnement."')";
 
+	$res = mysqli_query($connexion, $query);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	return $res;
+}
 
 
 

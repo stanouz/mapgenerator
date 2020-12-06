@@ -45,18 +45,18 @@
 					$attribut = listColums($_POST['listeTables']);
 
 
-					echo "<table>";
+					echo "<table class='Afficher'>";
 					
-					echo "<tr>";
+					echo "<tr class='Afficher'>";
 					foreach ($attribut as $att) {
 						echo '<td class="nomColonne">'.$att[0].'</td>';
 					}
 					echo "</tr>";
 
 					foreach ($table as $ligne) {
-						echo "<tr>";
+						echo "<tr class='Afficher'>";
 						foreach ($ligne as $case) {
-							echo "<td>".$case."</td>";
+							echo "<td class='Afficher'>".$case."</td>";
 						}
 						echo "</tr>";
 					}

@@ -198,10 +198,8 @@ CREATE TABLE EnvironnementSecondaire(
 
 CREATE TABLE Sauvegarde(
    nomPar VARCHAR(50),
-   nomPar_1 VARCHAR(50),
    valeur INT,
    dateSauvegarde DATE DEFAULT CURDATE(),
-   PRIMARY KEY(nomPar, nomPar_1),
+   PRIMARY KEY(nomPar),
    FOREIGN KEY(nomPar) REFERENCES Parametre(nomPar),
-   FOREIGN KEY(nomPar_1) REFERENCES Parametre(nomPar)
 );
