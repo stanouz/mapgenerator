@@ -8,8 +8,6 @@ CREATE TABLE ElementFixe(
    idElement INT AUTO_INCREMENT,
    nomElement VARCHAR(50),
    cheminImage VARCHAR(255),
-   positionElementFixe_x INT,
-   positionElementFixe_y INT,
    PRIMARY KEY(idElement)
 );
 
@@ -175,6 +173,8 @@ CREATE TABLE RelierZones(
 CREATE TABLE OnTrouve(
    idZone INT,
    idElement INT,
+   posX INT DEFAULT NULL,
+   posY INT DEFAULT NULL,
    PRIMARY KEY(idZone, idElement),
    FOREIGN KEY(idZone) REFERENCES Zone(idZone),
    FOREIGN KEY(idElement) REFERENCES ElementFixe(idElement)
@@ -183,6 +183,8 @@ CREATE TABLE OnTrouve(
 CREATE TABLE Contient(
    idZone INT,
    idEtreVivant INT,
+   posX INT DEFAULT NULL,
+   posY INT DEFAULT NULL,
    PRIMARY KEY(idZone, idEtreVivant),
    FOREIGN KEY(idZone) REFERENCES Zone(idZone),
    FOREIGN KEY(idEtreVivant) REFERENCES EtreVivant(idEtreVivant)
@@ -201,5 +203,5 @@ CREATE TABLE Sauvegarde(
    valeur INT,
    dateSauvegarde DATE DEFAULT CURDATE(),
    PRIMARY KEY(nomPar),
-   FOREIGN KEY(nomPar) REFERENCES Parametre(nomPar),
+   FOREIGN KEY(nomPar) REFERENCES Parametre(nomPar)
 );

@@ -88,6 +88,160 @@ function initZone($param){
 }
 
 
+// retourne $n instances aléatoire de la table
+
+function getRandomMobilier($n){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM Mobilier, ElementFixe WHERE idMobilier = idElement ORDER BY rand() LIMIT ".$n;
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
+function getRandomPiege($n){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM Piege, ElementFixe WHERE idPiege = idElement ORDER BY rand() LIMIT ".$n;
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
+function getRandomEquip($n){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM Equipement, ElementFixe WHERE idEquipement = idElement ORDER BY rand() LIMIT ".$n;
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
+function getRandomCreature($n){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM Creature, EtreVivant WHERE idCreature = idEtreVivant ORDER BY rand() LIMIT ".$n;
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
+function getRandomPNJ($n){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM PNJ, EtreVivant WHERE idPNJ = idEtreVivant ORDER BY rand() LIMIT ".$n;
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
+// selectionne des instances aléatoire en fonction des parametres saisie
+
+function getInstancesForZone($param){
+	$connexion = getConnexionBD();
+
+	$nb = rand($param['mobilier']['min'], $param['mobilier']['max']);
+	$mobilier = getRandomMobilier($nb);
+
+	$nb = rand($param['piege']['min'], $param['piege']['max']);
+	$piege = getRandomPiege($nb);
+
+	$nb = rand($param['equipement']['min'], $param['equipement']['max']);
+	$equip = getRandomEquip($nb);
+
+	$nb = rand($param['creature']['min'], $param['creature']['max']);
+	$creature = getRandomCreature($nb);
+
+	$nb = rand($param['pnj']['min'], $param['pnj']['max']);
+	$pnj = getRandomPNJ($nb);
+
+	$res = array(
+		'Mobilier'   => $mobilier,
+		'Piege'      => $piege,
+		'Equipement' => $equip,
+		'Creature'   => $creature,
+		'PNJ'        => $pnj
+ 	);
+
+	return $res;
+}
+
+
+
+function getZoneID(){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT MAX(idZone) FROM Zone";
+
+	$res = mysqli_query($connexion, $query);
+	$res = mysqli_fetch_assoc($res);
+	foreach ($res as $id) {
+		
+		$res = $id;
+	}
+
+	return $id;
+}
+
+// Initialise la table Contient avec les EtreVivants selectionnés aléatoirement
+// init seulement car on ne renseigne pas encore les positions
+function initContient_EV($instances){
+	$connexion = getConnexionBD();
+
+	$idZone = getZoneID();
+
+	foreach($instances['Creature'] as $IC){
+		$query = "INSERT INTO Contient(idZone, idEtreVivant) VALUES (".$idZone.", ".$IC['idCreature'].")";
+		$res = mysqli_query($connexion, $query);
+	}
+
+	foreach($instances['PNJ'] as $IP){
+		$query = "INSERT INTO Contient(idZone, idEtreVivant) VALUES (".$idZone.", ".$IP['idPNJ'].")";
+		$res = mysqli_query($connexion, $query);
+	}
+
+	
+	return $res;
+}
+
+
+
+
+// Initialise la table OnTrouve avec les ElementFixe selectionnés aléatoirement
+// init seulement car on ne renseigne pas encore les positions
+function initOnTrouve_EF($instances){
+	$connexion = getConnexionBD();
+
+	$idZone = getZoneID();
+
+	foreach($instances['Mobilier'] as $IM){
+		$query = "INSERT INTO OnTrouve(idZone, idElement) VALUES (".$idZone.", ".$IM['idMobilier'].")";
+		$res = mysqli_query($connexion, $query);
+	}
+
+	foreach($instances['Piege'] as $IPi){
+		$query = "INSERT INTO OnTrouve(idZone, idElement) VALUES (".$idZone.", ".$IPi['idPiege'].")";
+		$res = mysqli_query($connexion, $query);
+	}
+
+	foreach($instances['Equipement'] as $IE){
+		$query = "INSERT INTO OnTrouve(idZone, idElement) VALUES (".$idZone.", ".$IE['idEquipement'].")";
+		$res = mysqli_query($connexion, $query);
+	}
+
+	
+	return $res;
+}
+
+
+
+
+
 
 
 

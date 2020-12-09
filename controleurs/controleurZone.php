@@ -68,6 +68,11 @@ function checkMinMax(){
 if(isset($_POST['boutonGenererZone'])){
 	$param = checkMinMax();
 	initZone($param);
+	$randInst = getInstancesForZone($param);
+
+	initContient_EV($randInst);
+	initOnTrouve_EF($randInst);
+
 }
 
 

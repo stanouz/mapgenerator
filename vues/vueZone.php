@@ -98,6 +98,7 @@
 			<?php 
 
 			if(isset($_POST['boutonGenererZone'])){
+				// Affichage du tableau (vide pour l'instant)
 				echo "<table class='zone'>";
 				for($i=0; $i < $param['largeurZone']; $i++){
 					echo "<tr>";
@@ -106,8 +107,66 @@
 					}
 					echo "</tr>";
 				}
-			echo "</table>";
-			}
+				echo "</table>";
+
+
+				
+				echo "<H1>".getZoneID()."</H1>";
+				
+
+				
+
+				$attribMob = array_merge(listColums("Mobilier"), listColums("ElementFixe"));
+				$attribPiege = array_merge(listColums("Piege"), listColums("ElementFixe"));
+				$attribEquip = array_merge(listColums("Equipement"), listColums("ElementFixe"));
+
+				$attribCrea = array_merge(listColums("Creature"), listColums("EtreVivant"));
+				$attribPNJ = array_merge(listColums("PNJ"), listColums("EtreVivant"));
+
+				echo "================MOBILIER================ <br/>";
+				foreach($randInst['Mobilier'] as $inst){
+					foreach ($attribMob as $at) {
+						echo $at[0]."=".$inst[$at[0]]."<br/>";
+					}
+					echo "<br/>";
+				}
+
+				echo "<br/> ================PIEGE================ <br/>";
+				foreach($randInst['Piege'] as $inst){
+					foreach ($attribPiege as $at) {
+						echo $at[0]."=".$inst[$at[0]]."<br/>";
+					}
+					echo "<br/>";
+				}
+
+				echo "<br/> ================EQUIPEMENT================ <br/>";
+				foreach($randInst['Equipement'] as $inst){
+					foreach ($attribEquip as $at) {
+						echo $at[0]."=".$inst[$at[0]]."<br/>";
+					}
+					echo "<br/>";
+				}
+
+				echo "<br/> ================CREATURE================ <br/>";
+				foreach($randInst['Creature'] as $inst){
+					foreach ($attribCrea as $at) {
+						echo $at[0]."=".$inst[$at[0]]."<br/>";
+					}
+					echo "<br/>";
+				}
+
+				echo "<br/> ================PNJ================ <br/>";
+				foreach($randInst['PNJ'] as $inst){
+					foreach ($attribPNJ as $at) {
+						echo $at[0]."=".$inst[$at[0]]."<br/>";
+					}
+					echo "<br/>";
+				}
+
+				
+
+
+			}	
 
 			?>
 		</div>
