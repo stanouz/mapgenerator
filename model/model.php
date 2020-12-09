@@ -238,6 +238,244 @@ function initOnTrouve_EF($instances){
 	return $res;
 }
 
+function isEmptyAndEnoughtPlace($tab, $x, $y, $largeurElmt, $longueurElmt, $largeurZone, $longueurZone){
+
+	// Verif si assez de place en largeur
+	if($y+$largeurElmt >= $largeurZone){
+		return false;
+	}
+	// Verif si assez de place en longueur
+	if($x+$longueurElmt >= $longueurZone){
+		return false;
+	}
+
+	// Verif si il n'y a pas deja un element
+	for($i=$x; $i<$longueurElmt + $x + 1; $i++){
+		for($j=$y; $j<$largeurElmt + $y + 1; $j++){
+			if($tab[$i][$j]!=  " "){
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+
+function setPosOnTrouve($x, $y, $idElement){
+	$connexion = getConnexionBD();
+	$id = getZoneID();
+
+	$query = "UPDATE OnTrouve SET posX = ".$x." WHERE idElement = ".$idElement." AND idZone = ".$id;
+	mysqli_query($connexion, $query);
+
+	$query = "UPDATE OnTrouve SET posY = ".$y." WHERE idElement = ".$idElement." AND idZone = ".$id;
+	mysqli_query($connexion, $query);
+}
+
+
+function setPosContient($x, $y, $idEtreVivant){
+	$connexion = getConnexionBD();
+	$id = getZoneID();
+
+	$query = "UPDATE Contient SET posX = ".$x." WHERE idEtreVivant = ".$idEtreVivant." AND idZone = ".$id;
+	mysqli_query($connexion, $query);
+
+	$query = "UPDATE Contient SET posY = ".$y." WHERE idEtreVivant = ".$idEtreVivant." AND idZone = ".$id;
+	mysqli_query($connexion, $query);
+}
+
+
+
+
+
+
+
+
+
+function placeElements($param, $instances){
+	
+
+
+	$longueur = $param['longueurZone'];
+	$largeur  = $param['largeurZone'];
+
+
+	// Declaration d'un tableau de taille longueur x largeur
+	$zone = array();
+
+	for($i=0; $i<$longueur; $i++){
+		$zone[$i] =  array();
+		for($j=0; $j<$largeur; $j++){
+			$zone[$i][$j] = " ";
+		}
+	}
+
+
+	// Remplissage du tableau => coordonnée 0, 0 en haut à gauche
+
+
+	foreach ($instances['Piege'] as $instance) {
+		$long = $instance['zoneEffetLongueur'];
+		$larg = $instance['zoneEffetLargeur'];
+		$place = false;
+
+		for($i=0; $i<$longueur; $i++){
+			
+			for($j=0; $j<$largeur; $j++){
+
+				if(isEmptyAndEnoughtPlace($zone, $i, $j, $larg, $long, $largeur, $longueur) && !$place){
+					$name = $instance['nomElement'];
+					$id   = $instance['idElement'];
+
+					setPosOnTrouve($i, $j, $id);
+
+					for($k=$i; $k<$long+$i; $k++){
+						for($l=$j; $l<$larg+$j; $l++){
+							$zone[$k][$l] = $name;
+						}
+					}
+					$place = true;
+				}
+			}
+		}	
+	}
+
+
+	foreach ($instances['Mobilier'] as $instance) {
+		$long = $instance['longueur'];
+		$larg = $instance['largeur'];
+		$place = false;
+
+		for($i=0; $i<$longueur; $i++){
+			
+			for($j=0; $j<$largeur; $j++){
+
+				if(isEmptyAndEnoughtPlace($zone, $i, $j, $larg, $long, $largeur, $longueur) && !$place){
+					$name = $instance['nomElement'];
+					$id   = $instance['idElement'];
+
+					setPosOnTrouve($i, $j, $id);
+
+					for($k=$i; $k<$long+$i; $k++){
+						for($l=$j; $l<$larg+$j; $l++){
+							$zone[$k][$l] = $name;
+		
+						}
+					}
+					$place = true;
+				}
+			}
+		}	
+	}
+
+
+	foreach ($instances['Equipement'] as $instance) {
+		$long = 1;
+		$larg = 1;
+		$place = false;
+
+		for($i=0; $i<$longueur; $i++){
+			
+			for($j=0; $j<$largeur; $j++){
+
+				if(isEmptyAndEnoughtPlace($zone, $i, $j, $larg, $long, $largeur, $longueur) && !$place){
+					$name = $instance['nomElement'];
+					$id   = $instance['idElement'];
+
+					setPosOnTrouve($i, $j, $id);
+
+					for($k=$i; $k<$long+$i; $k++){
+						for($l=$j; $l<$larg+$j; $l++){
+							$zone[$k][$l] = $name;
+						
+						}
+					}
+					$place = true;
+				}
+			}
+		}	
+	}
+
+
+	foreach ($instances['Creature'] as $instance) {
+		$long = 1;
+		$larg = 1;
+		$place = false;
+
+		for($i=0; $i<$longueur; $i++){
+			
+			for($j=0; $j<$largeur; $j++){
+
+				if(isEmptyAndEnoughtPlace($zone, $i, $j, $larg, $long, $largeur, $longueur) && !$place){
+					$name = $instance['nomEtreVivant'];
+					$id   = $instance['idEtreVivant'];
+
+					setPosContient($i, $j, $id);
+
+					for($k=$i; $k<$long+$i; $k++){
+						for($l=$j; $l<$larg+$j; $l++){
+							$zone[$k][$l] = $name;
+							
+						}
+					}
+					$place = true;
+				}
+			}
+		}	
+	}
+
+	foreach ($instances['PNJ'] as $instance) {
+		$long = 1;
+		$larg = 1;
+		$place = false;
+
+		for($i=0; $i<$longueur; $i++){
+			
+			for($j=0; $j<$largeur; $j++){
+
+				if(isEmptyAndEnoughtPlace($zone, $i, $j, $larg, $long, $largeur, $longueur) && !$place){
+					$name = $instance['nomEtreVivant'];
+					$id   = $instance['idEtreVivant'];
+
+					setPosContient($i, $j, $id);
+
+					for($k=$i; $k<$long+$i; $k++){
+						for($l=$j; $l<$larg+$j; $l++){
+							$zone[$k][$l] = $name;
+							
+						}
+					}
+					$place = true;
+				}
+			}
+		}	
+	}
+
+
+	return $zone;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
