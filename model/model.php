@@ -241,17 +241,17 @@ function initOnTrouve_EF($instances){
 function isEmptyAndEnoughtPlace($tab, $x, $y, $largeurElmt, $longueurElmt, $largeurZone, $longueurZone){
 
 	// Verif si assez de place en largeur
-	if($y+$largeurElmt >= $largeurZone){
+	if($y+$largeurElmt > $largeurZone){
 		return false;
 	}
 	// Verif si assez de place en longueur
-	if($x+$longueurElmt >= $longueurZone){
+	if($x+$longueurElmt > $longueurZone){
 		return false;
 	}
 
 	// Verif si il n'y a pas deja un element
-	for($i=$x; $i<$longueurElmt + $x + 1; $i++){
-		for($j=$y; $j<$largeurElmt + $y + 1; $j++){
+	for($i=$x; $i<$longueurElmt + $x; $i++){
+		for($j=$y; $j<$largeurElmt + $y; $j++){
 			if($tab[$i][$j]!=  " "){
 				return false;
 			}
