@@ -481,7 +481,7 @@ function initCarte($nomCarte, $description){
 
 	$verif = mysqli_query($connexion, $query);
 
-	if(mysqli_num_rows($verif)==0){
+	if($verif == FALSE || mysqli_num_rows($verif)==0){
 		$query = "INSERT INTO Carte(nomCarte, descriptionCarte) VALUES ('".$nomCarte."', '".$description."')";
 		$insertion = mysqli_query($connexion, $query);
 	}
@@ -492,15 +492,6 @@ function initCarte($nomCarte, $description){
 	return $message;
 }
 
-
-function initCreateur($nomCarte, $prenom, $nom){
-	$connexion = getConnexionBD();
-
-
-	$nom = mysqli_real_escape_string($connexion, $nom);
-	$prenom = mysqli_real_escape_string($connexion, $prenom);
-
-}
 
 
 function createContrib($nom, $prenom, $nomCarte){
@@ -527,11 +518,7 @@ function createContrib($nom, $prenom, $nomCarte){
 
 	$query = "UPDATE Carte SET idCreateur = '".$id[0]['idContributrice']."' WHERE nomCarte = '".$nomCarte."'";
 
-
 	mysqli_query($connexion, $query);
-
-	return $nb;
-
 }
 
 
