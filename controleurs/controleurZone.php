@@ -2,6 +2,16 @@
 
 $environnements = getAttribut("Environnement", "nomEnvironnement");
 
+// Definition des couleurs pour chaque type d'élements
+$colors = array(
+				"Creature"   => "#EC7063",
+				"PNJ"        => "#5499C7",
+				"Mobilier"   => "#F0B27A",
+				"Piege"      => "#99A3A4",
+				"Equipement" => "#A9DFBF",
+				" "          => "#F2F4F4"
+			);
+
 
 function getParametres(){
 
@@ -70,10 +80,12 @@ if(isset($_POST['boutonGenererZone'])){
 	initZone($param);
 	$randInst = getInstancesForZone($param);
 
-	initContient_EV($randInst);
-	initOnTrouve_EF($randInst);
+	$idZone = getZoneID();
 
-	$zone = placeElements($param, $randInst);
+	initContient_EV($randInst, $idZone);
+	initOnTrouve_EF($randInst, $idZone);
+
+	$zone = placeElements($param, $randInst, $idZone);
 
 }
 

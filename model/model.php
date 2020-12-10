@@ -190,10 +190,10 @@ function getZoneID(){
 
 // Initialise la table Contient avec les EtreVivants selectionnés aléatoirement
 // init seulement car on ne renseigne pas encore les positions
-function initContient_EV($instances){
+function initContient_EV($instances, $idZone){
 	$connexion = getConnexionBD();
 
-	$idZone = getZoneID();
+	
 
 	foreach($instances['Creature'] as $IC){
 		$query = "INSERT INTO Contient(idZone, idEtreVivant) VALUES (".$idZone.", ".$IC['idCreature'].")";
@@ -214,10 +214,10 @@ function initContient_EV($instances){
 
 // Initialise la table OnTrouve avec les ElementFixe selectionnés aléatoirement
 // init seulement car on ne renseigne pas encore les positions
-function initOnTrouve_EF($instances){
+function initOnTrouve_EF($instances, $idZone){
 	$connexion = getConnexionBD();
 
-	$idZone = getZoneID();
+
 
 	foreach($instances['Mobilier'] as $IM){
 		$query = "INSERT INTO OnTrouve(idZone, idElement) VALUES (".$idZone.", ".$IM['idMobilier'].")";
@@ -252,7 +252,7 @@ function isEmptyAndEnoughtPlace($tab, $x, $y, $largeurElmt, $longueurElmt, $larg
 	// Verif si il n'y a pas deja un element
 	for($i=$x; $i<$longueurElmt + $x; $i++){
 		for($j=$y; $j<$largeurElmt + $y; $j++){
-			if($tab[$i][$j]!=  " "){
+			if($tab[$i][$j]['nom']!=  " "){
 				return false;
 			}
 		}
@@ -262,9 +262,8 @@ function isEmptyAndEnoughtPlace($tab, $x, $y, $largeurElmt, $longueurElmt, $larg
 }
 
 
-function setPosOnTrouve($x, $y, $idElement){
+function setPosOnTrouve($x, $y, $idElement, $id){
 	$connexion = getConnexionBD();
-	$id = getZoneID();
 
 	$query = "UPDATE OnTrouve SET posX = ".$x." WHERE idElement = ".$idElement." AND idZone = ".$id;
 	mysqli_query($connexion, $query);
@@ -274,9 +273,8 @@ function setPosOnTrouve($x, $y, $idElement){
 }
 
 
-function setPosContient($x, $y, $idEtreVivant){
+function setPosContient($x, $y, $idEtreVivant, $id){
 	$connexion = getConnexionBD();
-	$id = getZoneID();
 
 	$query = "UPDATE Contient SET posX = ".$x." WHERE idEtreVivant = ".$idEtreVivant." AND idZone = ".$id;
 	mysqli_query($connexion, $query);
@@ -289,11 +287,7 @@ function setPosContient($x, $y, $idEtreVivant){
 
 
 
-
-
-
-
-function placeElements($param, $instances){
+function placeElements($param, $instances, $idZone){
 	
 
 
@@ -307,7 +301,7 @@ function placeElements($param, $instances){
 	for($i=0; $i<$longueur; $i++){
 		$zone[$i] =  array();
 		for($j=0; $j<$largeur; $j++){
-			$zone[$i][$j] = " ";
+			$zone[$i][$j] = array('type' => " ", 'nom' => " ");
 		}
 	}
 
@@ -328,11 +322,12 @@ function placeElements($param, $instances){
 					$name = $instance['nomElement'];
 					$id   = $instance['idElement'];
 
-					setPosOnTrouve($i, $j, $id);
+					setPosOnTrouve($i, $j, $id, $idZone);
 
 					for($k=$i; $k<$long+$i; $k++){
 						for($l=$j; $l<$larg+$j; $l++){
-							$zone[$k][$l] = $name;
+							$zone[$k][$l]['nom'] = $name;
+							$zone[$k][$l]['type'] = 'Piege';
 						}
 					}
 					$place = true;
@@ -355,11 +350,12 @@ function placeElements($param, $instances){
 					$name = $instance['nomElement'];
 					$id   = $instance['idElement'];
 
-					setPosOnTrouve($i, $j, $id);
+					setPosOnTrouve($i, $j, $id, $idZone);
 
 					for($k=$i; $k<$long+$i; $k++){
 						for($l=$j; $l<$larg+$j; $l++){
-							$zone[$k][$l] = $name;
+							$zone[$k][$l]['nom'] = $name;
+							$zone[$k][$l]['type'] = 'Mobilier';
 		
 						}
 					}
@@ -383,11 +379,12 @@ function placeElements($param, $instances){
 					$name = $instance['nomElement'];
 					$id   = $instance['idElement'];
 
-					setPosOnTrouve($i, $j, $id);
+					setPosOnTrouve($i, $j, $id, $idZone);
 
 					for($k=$i; $k<$long+$i; $k++){
 						for($l=$j; $l<$larg+$j; $l++){
-							$zone[$k][$l] = $name;
+							$zone[$k][$l]['nom'] = $name;
+							$zone[$k][$l]['type'] = 'Equipement';
 						
 						}
 					}
@@ -411,11 +408,12 @@ function placeElements($param, $instances){
 					$name = $instance['nomEtreVivant'];
 					$id   = $instance['idEtreVivant'];
 
-					setPosContient($i, $j, $id);
+					setPosContient($i, $j, $id, $idZone);
 
 					for($k=$i; $k<$long+$i; $k++){
 						for($l=$j; $l<$larg+$j; $l++){
-							$zone[$k][$l] = $name;
+							$zone[$k][$l]['nom'] = $name;
+							$zone[$k][$l]['type'] = 'Creature';
 							
 						}
 					}
@@ -438,11 +436,12 @@ function placeElements($param, $instances){
 					$name = $instance['nomEtreVivant'];
 					$id   = $instance['idEtreVivant'];
 
-					setPosContient($i, $j, $id);
+					setPosContient($i, $j, $id, $idZone);
 
 					for($k=$i; $k<$long+$i; $k++){
 						for($l=$j; $l<$larg+$j; $l++){
-							$zone[$k][$l] = $name;
+							$zone[$k][$l]['nom'] = $name;
+							$zone[$k][$l]['type'] = 'PNJ';
 							
 						}
 					}
@@ -452,9 +451,13 @@ function placeElements($param, $instances){
 		}	
 	}
 
-
 	return $zone;
 }
+
+
+
+
+
 
 
 

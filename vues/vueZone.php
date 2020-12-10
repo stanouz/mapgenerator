@@ -21,13 +21,13 @@
 			<br/>
 
 			<label for="largeur">Largeur de la zone :</label>
-			<input id="largeur" type="number" name="largeur" value="10" min="10" max="50" required>
+			<input id="largeur" type="number" name="largeur" value="20" min="10" max="50" required>
 
 			<br/>
 			<br/>
 
 			<label for="longueur">Longueur de la zone :</label>
-			<input id="longueur" type="number" name="longueur" value="10" min="10" max="50" required>
+			<input id="longueur" type="number" name="longueur" value="20" min="10" max="50" required>
 
 			<br/>
 			<br/>
@@ -47,42 +47,42 @@
 			<br/>
 
 			<label for="nbMobilierMin">Nombre de mobiliers entre </label>
-			<input id="nbElement" type="number" name="nbMobilierMin" value="3" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbMobilierMin" value="1" min="1" max="20" required>
 			<label for="nbMobilierMax"> et  </label>
-			<input id="nbElement" type="number" name="nbMobilierMax" value="7" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbMobilierMax" value="20" min="1" max="20" required>
 
 			<br/>
 			<br/>
 
 			<label for="nbPiegeMin">Nombre de pièges entre </label>
-			<input id="nbElement" type="number" name="nbPiegeMin" value="3" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbPiegeMin" value="1" min="1" max="20" required>
 			<label for="nbPiegeMax"> et  </label>
-			<input id="nbElement" type="number" name="nbPiegeMax" value="7" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbPiegeMax" value="20" min="1" max="20" required>
 
 			<br/>
 			<br/>
 
 			<label for="nbEquipementMin">Nombre d'équipements entre </label>
-			<input id="nbElement" type="number" name="nbEquipementMin" value="3" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbEquipementMin" value="1" min="1" max="20" required>
 			<label for="nbEquipementMax"> et  </label>
-			<input id="nbElement" type="number" name="nbEquipementMax" value="7" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbEquipementMax" value="20" min="1" max="20" required>
 
 
 			<br/>
 			<br/>
 
 			<label for="nbCreatureMin">Nombre de créature entre </label>
-			<input id="nbElement" type="number" name="nbCreatureMin" value="3" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbCreatureMin" value="1" min="1" max="20" required>
 			<label for="nbCreatureMax"> et  </label>
-			<input id="nbElement" type="number" name="nbCreatureMax" value="7" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbCreatureMax" value="20" min="1" max="20" required>
 
 			<br/>
 			<br/>
 
 			<label for="nbPnjMin">Nombre de PNJ entre </label>
-			<input id="nbElement" type="number" name="nbPnjMin" value="3" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbPnjMin" value="1" min="1" max="20" required>
 			<label for="nbPnjMax"> et  </label>
-			<input id="nbElement" type="number" name="nbPnjMax" value="7" min="1" max="10" required>
+			<input id="nbElement" type="number" name="nbPnjMax" value="20" min="1" max="20" required>
 
 
 			<br/>
@@ -97,14 +97,15 @@
 		<div class="tables">
 			<?php 
 
+
 			if(isset($_POST['boutonGenererZone'])){
 				
-				
+
 				echo "<table class='zone'>";
 				foreach($zone as $ligne){
 					echo "<tr>";
 					foreach($ligne as $case){
-						echo "<td class='zone'>".$case."</td>";
+						echo "<td class='zone' style='background-color: ".$colors[$case['type']]." ' >".$case['nom']."</td>";
 					}
 					echo "</tr>";
 				}

@@ -23,6 +23,80 @@ VALUES((SELECT MAX(idEtreVivant)
 	   'Venez dans ma boutique !');
 
 
+
+INSERT INTO EtreVivant(nomEtreVivant, piece, pointAttaque, pointDeVie, categorie) 
+VALUES('Zidane', 8, 1, 3, 'sportif');
+
+INSERT INTO PNJ 
+VALUES((SELECT MAX(idEtreVivant)
+			FROM EtreVivant 
+			WHERE nomEtreVivant='Zidane'),	
+	   'footballer',
+	   'Heureux',
+	   'Attention au coup de boul!');
+
+
+INSERT INTO EtreVivant(nomEtreVivant, piece, pointAttaque, pointDeVie, categorie) 
+VALUES('Emmanuel Macron', 4, 2, 7, 'Politique');
+
+INSERT INTO PNJ 
+VALUES((SELECT MAX(idEtreVivant)
+			FROM EtreVivant 
+			WHERE nomEtreVivant='Emmanuel Macron'),	
+	   'Président',
+	   'Solennel',
+	   'Et vive la République !');
+
+
+INSERT INTO EtreVivant(nomEtreVivant, piece, pointAttaque, pointDeVie, categorie) 
+VALUES('Camille', 4, 2, 7, 'Jeune');
+
+INSERT INTO PNJ 
+VALUES((SELECT MAX(idEtreVivant)
+			FROM EtreVivant 
+			WHERE nomEtreVivant='Camille'),	
+	   'Etudiante',
+	   'Souriante',
+	   'Comment ça va ?! :)');
+
+
+INSERT INTO EtreVivant(nomEtreVivant, piece, pointAttaque, pointDeVie, categorie) 
+VALUES('Stan', 4, 2, 7, 'Jeune');
+
+INSERT INTO PNJ 
+VALUES((SELECT MAX(idEtreVivant)
+			FROM EtreVivant 
+			WHERE nomEtreVivant='Stan'),	
+	   'Etudiante en BDD',
+	   'Travailleur',
+	   'Tu connais le SQL ?');
+
+
+INSERT INTO EtreVivant(nomEtreVivant, piece, pointAttaque, pointDeVie, categorie) 
+VALUES('Bobby', 4, 2, 7, 'citadin');
+
+INSERT INTO PNJ 
+VALUES((SELECT MAX(idEtreVivant)
+			FROM EtreVivant 
+			WHERE nomEtreVivant='Bobby'),	
+	   'Skater',
+	   'Sérieux',
+	   'Tu as vu le tricks ?!');
+
+
+INSERT INTO EtreVivant(nomEtreVivant, piece, pointAttaque, pointDeVie, categorie) 
+VALUES('Joseph', 4, 2, 7, 'citadin');
+
+INSERT INTO PNJ 
+VALUES((SELECT MAX(idEtreVivant)
+			FROM EtreVivant 
+			WHERE nomEtreVivant='Joseph'),	
+	   'Poissonier',
+	   'Bavard',
+	   'Qui veut du bon poisson !');
+
+
+
 /* Insertion description environnement */
 
 UPDATE Environnement
