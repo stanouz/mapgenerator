@@ -43,19 +43,13 @@
 			<label for="choixEnvironnementCarte">Choississiez les types d'environnement que vous souhaitez voir dans votre carte : </label>
 			<br>
 			<?php
-<<<<<<< HEAD
+
 			
 
 			foreach ($environnements as $env) {
 
     			echo "<input type='checkbox' name='".$env[0]."'>".$env[0]."</input><br>";
-=======
-			$environnements = getAttribut("Environnement", "nomEnvironnement");
 
-			foreach ($environnements as $env) {
-
-    	echo "<input type='checkbox' name='".$env[0]."'>".$env[0]."</input><br>";
->>>>>>> d9b28af578544080dffe0c285df11510f397a639
 
 			}
 
@@ -117,11 +111,9 @@
 			<br/><br/>
 			<input type="submit" name="boutonGenerer" value="Generer"/>
 		</form>
-<<<<<<< HEAD
+
 		<p><?= $message ?></p>
-=======
-		<p><?= $message?></p>
->>>>>>> d9b28af578544080dffe0c285df11510f397a639
+
 	</main>
 
 
