@@ -467,69 +467,68 @@ function placeElements($param, $instances, $idZone){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creation de carte 
 
 
+function initCarte($nomCarte, $description){
+	$message = "";
 
-function createCarte($nomCarte,$nomContrib, $prenomContrib){
 	$connexion = getConnexionBD();
 	
 	$nomCarte = mysqli_real_escape_string($connexion, $nomCarte);
-	$nomContrib = mysqli_real_escape_string($connexion, $nomContrib);
-	$prenomContrib = mysqli_real_escape_string($connexion, $prenomContrib);
-	// Verif si aucune carte existante avec ce nom
-	$requete = "SELECT nomCarte FROM Carte WHERE nomCarte='".$nomCarte."'";
-	$verif = mysqli_query($connexion, $requete);
-	$message="";
-	if($verif == FALSE || mysqli_num_rows($verif) == 0){
-		$requete = "INSERT INTO Carte(nomCarte) VALUES ('".$nomCarte."')";
-		$insertion = mysqli_query($connexion, $requete);
-		if($insertion == FALSE) {
-			$message = "Erreur lors de l'insertion de la carte $nomCarte.\n";
-		}
+
+	$query = "SELECT nomCarte FROM Carte WHERE nomCarte='".$nomCarte."'";
+
+	$verif = mysqli_query($connexion, $query);
+
+	if(mysqli_num_rows($verif)==0){
+		$query = "INSERT INTO Carte(nomCarte, descriptionCarte) VALUES ('".$nomCarte."', '".$description."')";
+		$insertion = mysqli_query($connexion, $query);
 	}
-	else {
-		$message = "Une carte existe déjà avec ce nom : $nomCarte.\n";
-	}
-	
-	// Verif si contrib avec ce nom prenom existe, si non on en créé un
-	// Contrib a faire génération de la carte
-	$requete = "SELECT idContributrice FROM Contributrice WHERE nomContributrice='".$nomContrib."'AND prenomContributrice='".$prenomContrib."'";
-	
-	$idContrib = mysqli_query($connexion, $requete);
-	if($idContrib == FALSE){
-		$message = "Erreur pour le test des contributrices";
+	else{
+		$message = "Une carte existe deja avec ce nom ! \n";
 	}
 
-	
 	return $message;
 }
 
-function createContrib($nom, $prenom, $connexion){
+
+function initCreateur($nomCarte, $prenom, $nom){
+	$connexion = getConnexionBD();
+
+
 	$nom = mysqli_real_escape_string($connexion, $nom);
 	$prenom = mysqli_real_escape_string($connexion, $prenom);
 
-	$requete = "SELECT COUNT(*) FROM contributeur_ice";
-	$nb = mysqli_query($connexion, $requette);
+}
+
+
+function createContrib($nom, $prenom, $nomCarte){
+
+	$connexion = getConnexionBD();
+
+	$nom = mysqli_real_escape_string($connexion, $nom);
+	$prenom = mysqli_real_escape_string($connexion, $prenom);
+	$nomCarte = mysqli_real_escape_string($connexion, $nomCarte);
+
+	$requete = "SELECT idContributrice FROM Contributrice WHERE nomContributrice = '".$nom."' AND prenomContributrice = '".$prenom."'";
+	$verif = mysqli_query($connexion, $requete);
+
+	if(mysqli_num_rows($verif)==0){
+		$query = "INSERT INTO Contributrice(nomContributrice, prenomContributrice) VALUES ('".$nom."', '".$prenom."')";
+		$insertion = mysqli_query($connexion, $query);
+	}
+
+	$requete = "SELECT idContributrice FROM Contributrice WHERE nomContributrice = '".$nom."' AND prenomContributrice = '".$prenom."'";
+	$nb = mysqli_query($connexion, $requete);
+
+	$id = mysqli_fetch_all($nb, MYSQLI_ASSOC);
+
+
+	$query = "UPDATE Carte SET idCreateur = '".$id[0]['idContributrice']."' WHERE nomCarte = '".$nomCarte."'";
+
+
+	mysqli_query($connexion, $query);
 
 	return $nb;
 

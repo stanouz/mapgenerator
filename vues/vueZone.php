@@ -47,7 +47,7 @@
 			<br/>
 
 			<label for="nbMobilierMin">Nombre de mobiliers entre </label>
-			<input id="nbElement" type="number" name="nbMobilierMin" value="1" min="1" max="20" required>
+			<input id="nbElement" type="number" name="nbMobilierMin" value="10" min="1" max="20" required>
 			<label for="nbMobilierMax"> et  </label>
 			<input id="nbElement" type="number" name="nbMobilierMax" value="20" min="1" max="20" required>
 
@@ -55,7 +55,7 @@
 			<br/>
 
 			<label for="nbPiegeMin">Nombre de pièges entre </label>
-			<input id="nbElement" type="number" name="nbPiegeMin" value="1" min="1" max="20" required>
+			<input id="nbElement" type="number" name="nbPiegeMin" value="10" min="1" max="20" required>
 			<label for="nbPiegeMax"> et  </label>
 			<input id="nbElement" type="number" name="nbPiegeMax" value="20" min="1" max="20" required>
 
@@ -63,7 +63,7 @@
 			<br/>
 
 			<label for="nbEquipementMin">Nombre d'équipements entre </label>
-			<input id="nbElement" type="number" name="nbEquipementMin" value="1" min="1" max="20" required>
+			<input id="nbElement" type="number" name="nbEquipementMin" value="10" min="1" max="20" required>
 			<label for="nbEquipementMax"> et  </label>
 			<input id="nbElement" type="number" name="nbEquipementMax" value="20" min="1" max="20" required>
 
@@ -72,7 +72,7 @@
 			<br/>
 
 			<label for="nbCreatureMin">Nombre de créature entre </label>
-			<input id="nbElement" type="number" name="nbCreatureMin" value="1" min="1" max="20" required>
+			<input id="nbElement" type="number" name="nbCreatureMin" value="10" min="1" max="20" required>
 			<label for="nbCreatureMax"> et  </label>
 			<input id="nbElement" type="number" name="nbCreatureMax" value="20" min="1" max="20" required>
 
@@ -80,7 +80,7 @@
 			<br/>
 
 			<label for="nbPnjMin">Nombre de PNJ entre </label>
-			<input id="nbElement" type="number" name="nbPnjMin" value="1" min="1" max="20" required>
+			<input id="nbElement" type="number" name="nbPnjMin" value="10" min="1" max="20" required>
 			<label for="nbPnjMax"> et  </label>
 			<input id="nbElement" type="number" name="nbPnjMax" value="20" min="1" max="20" required>
 
@@ -97,6 +97,11 @@
 		<div class="tables">
 			<?php 
 
+			
+
+
+
+
 
 			if(isset($_POST['boutonGenererZone'])){
 				
@@ -110,11 +115,12 @@
 					echo "</tr>";
 				}
 				echo "</table>";
-				
-				
-
-
 			}	
+
+
+
+
+
 
 			?>
 		</div>
