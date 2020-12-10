@@ -12,7 +12,7 @@ $colors = array(
 				" "          => "#F2F4F4"
 			);
 
-
+// Renvoie un tableau avec les parametre du formulaire
 function getParametres(){
 
 	$liste = array(
@@ -37,7 +37,7 @@ function getParametres(){
 	return $liste;
 }
 
-
+// Reordonne les intervalles si min > max 
 function checkMinMax(){
 	$param = getParametres();
 

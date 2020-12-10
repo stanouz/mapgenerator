@@ -12,6 +12,7 @@ $colors = array(
 				" "          => "#F2F4F4"
 );
 
+// Creer un tableau avec les parametre du formulaire
 function getParametreCarte(){
 	$param = array(
 		'nomCarte'        => $_POST['nomCarte'],
@@ -46,12 +47,61 @@ function getParametreCarte(){
 	return $param;
 }
 
+// Réordonne les intervalles si min > max
+function checkMinMax(){
+	$param = getParametreCarte();
+
+	if( $param['zone']['min'] > $param['zone']['max']){
+		$tmp = $param['zone']['min'];
+		$param['zone']['min'] = $param['zone']['max'];
+		$param['zone']['max'] = $tmp;
+	}
+
+	if( $param['dimZone']['min'] > $param['dimZone']['max']){
+		$tmp = $param['dimZone']['min'];
+		$param['dimZone']['min'] = $param['dimZone']['max'];
+		$param['dimZone']['max'] = $tmp;
+	}
+
+	if( $param['mobilier']['min'] > $param['mobilier']['max']){
+		$tmp = $param['mobilier']['min'];
+		$param['mobilier']['min'] = $param['mobilier']['max'];
+		$param['mobilier']['max'] = $tmp;
+	}
+
+	if( $param['piege']['min'] > $param['piege']['max']){
+		$tmp = $param['piege']['min'];
+		$param['piege']['min'] = $param['piege']['max'];
+		$param['piege']['max'] = $tmp;
+	}
+
+	if( $param['equipement']['min'] > $param['equipement']['max']){
+		$tmp = $param['equipement']['min'];
+		$param['equipement']['min'] = $param['equipement']['max'];
+		$param['equipement']['max'] = $tmp;
+	}
+
+	if( $param['creature']['min'] > $param['creature']['max']){
+		$tmp = $param['creature']['min'];
+		$param['creature']['min'] = $param['creature']['max'];
+		$param['creature']['max'] = $tmp;
+	}
+
+	if( $param['pnj']['min'] > $param['pnj']['max']){
+		$tmp = $param['pnj']['min'];
+		$param['pnj']['min'] = $param['pnj']['max'];
+		$param['pnj']['max'] = $tmp;
+	}
+
+	return $param;
+}
+
 
 
 
 if(isset($_POST['boutonGenerer'])){
 
-	$param = getParametreCarte();
+	$param = checkMinMax();
 
 	$message = initCarte($param['nomCarte'], $param['description']);
 	createContrib($param['nom'], $param['prenom'], $param['nomCarte']);
@@ -62,9 +112,6 @@ if(isset($_POST['boutonGenerer'])){
 	
 	$maxX = getMaxPos($param, 'x');
 	$maxY = getMaxPos($param, 'y');
-
-
-
 
 }
 

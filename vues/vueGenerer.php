@@ -144,6 +144,10 @@
 										
 										$msg = " ";
 										
+										
+
+
+
 										foreach ($zone[$k][$l]['info'] as $colonne) {
 											$msg = $msg."<br/>".$colonne;
 										}
@@ -155,11 +159,7 @@
 									echo "</tr>";
 								}
 
-
 								echo "</table>";
-
-								
-
 						}
 							echo "</td>";
 

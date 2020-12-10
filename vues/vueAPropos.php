@@ -11,7 +11,9 @@
 	
 	<main>
 		
-		<h1> Mettre des infos sur le projet </h1>
+		<h1> A propos de notre site : </h1>
+		<li>Site réalisé par Lyes OURRED et Stanislas BAGNOL.</li>
+		<li><a href="https://perso.liris.cnrs.fr/fabien.duchateau/docs/ens/BDW1/projet/projet.pdf">Lien</a> vers le sujet du projet.</li>
 
 	</main>
 

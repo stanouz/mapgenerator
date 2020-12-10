@@ -12,7 +12,7 @@
 
 	<div id="divCentral">
 		<main>
-			<h1> AJOUTER UNE PHOTO D'UNE CARTE GENERER </h1>
+			<img src="img/map.jpg" width="93%"></img>
 			
 		</main>
 	</div>

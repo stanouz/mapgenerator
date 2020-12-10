@@ -1,5 +1,9 @@
 <?php
 
+// BAGNOL Stanislas p1909886
+// OURRED Lyes      p1809902 
+
+
 session_start();
 
 require('inc/constantes.php');

@@ -3,7 +3,7 @@
 
 // Affichage des données 
 
-	
+// Renvoie le nombre d'instances dans une table donnée
 function nombreInstancesTable($nomTable)
 {
 
@@ -19,7 +19,7 @@ function nombreInstancesTable($nomTable)
 	return $nb['nb'];
 }
 
-
+// Renvoie les différents attributs d'une table donnée
 function listColums($nomTable){
 	$connexion = getConnexionBD();
 
@@ -30,6 +30,7 @@ function listColums($nomTable){
 	return mysqli_fetch_all($res);
 }
 
+// Renvoie la listes des tables de la BDD
 function listTables(){
 	$connexion = getConnexionBD();
 	
@@ -39,7 +40,7 @@ function listTables(){
 }
 
 
-
+// Renvoie toutes les lignes d'une tables donnée
 function getTable($nomTable){
 	$connexion = getConnexionBD();
 	
@@ -57,7 +58,7 @@ function getTable($nomTable){
 
 // Générer une zone
 
-
+// Renvoie toutes les lignes d'un attributs donné dans une table donnée
 function getAttribut($nomTable, $nomAttribut){
 	$connexion = getConnexionBD();
 
@@ -72,7 +73,7 @@ function getAttribut($nomTable, $nomAttribut){
 	return mysqli_fetch_all($res);
 }
 
-
+// Initialise une zone dans la base de donnée, il reste des champs à inserer qu'on mettra plus tard
 function initZone($param){
 	$connexion = getConnexionBD();
 
@@ -88,8 +89,7 @@ function initZone($param){
 }
 
 
-// retourne $n instances aléatoire de la table
-
+// Retourne n instances aléatoire de la table Mobilier et son parent ElementFixe
 function getRandomMobilier($n){
 	$connexion = getConnexionBD();
 
@@ -100,6 +100,7 @@ function getRandomMobilier($n){
 	return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
+// Retourne n instances aléatoire de la table Piege et son parent ElementFixe
 function getRandomPiege($n){
 	$connexion = getConnexionBD();
 
@@ -110,6 +111,7 @@ function getRandomPiege($n){
 	return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
+// Retourne n instances aléatoire de la table Equipement et son parent ElementFixe
 function getRandomEquip($n){
 	$connexion = getConnexionBD();
 
@@ -120,6 +122,7 @@ function getRandomEquip($n){
 	return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
+// Retourne n instances aléatoire de la table Creature et son parent EtreVivant
 function getRandomCreature($n){
 	$connexion = getConnexionBD();
 
@@ -130,6 +133,8 @@ function getRandomCreature($n){
 	return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
+
+// Retourne n instances aléatoire de la table PNJ et son parent EtreVivant
 function getRandomPNJ($n){
 	$connexion = getConnexionBD();
 
@@ -140,8 +145,8 @@ function getRandomPNJ($n){
 	return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
-// selectionne des instances aléatoire en fonction des parametres saisie
-
+// selectionne des instances aléatoire en fonction des parametres saisie en réutilisant les fonctions précedantes
+// renvoie un tableau avec comme clé le nom de la table, contient tous les attribut de la table
 function getInstancesForZone($param){
 	$connexion = getConnexionBD();
 
@@ -172,7 +177,7 @@ function getInstancesForZone($param){
 }
 
 
-
+// Renvoie l'idZone de la dernière Zone créée
 function getZoneID(){
 	$connexion = getConnexionBD();
 
@@ -238,6 +243,7 @@ function initOnTrouve_EF($instances, $idZone){
 	return $res;
 }
 
+// On verifie si a partir d'une position (x, y) + largeur et longueur de l'element et par rapport à la taille de la zone si on peut placer l'élement sans collision avec d'autre
 function isEmptyAndEnoughtPlace($tab, $x, $y, $largeurElmt, $longueurElmt, $largeurZone, $longueurZone){
 
 	// Verif si assez de place en largeur
@@ -261,7 +267,7 @@ function isEmptyAndEnoughtPlace($tab, $x, $y, $largeurElmt, $longueurElmt, $larg
 	return true;
 }
 
-
+// Insere dans la table OnTrouve la position definie pour l'element
 function setPosOnTrouve($x, $y, $idElement, $id){
 	$connexion = getConnexionBD();
 
@@ -272,7 +278,7 @@ function setPosOnTrouve($x, $y, $idElement, $id){
 	mysqli_query($connexion, $query);
 }
 
-
+// Insere dans la table Contient la position definie pour l'EtreVivant
 function setPosContient($x, $y, $idEtreVivant, $id){
 	$connexion = getConnexionBD();
 
@@ -284,9 +290,7 @@ function setPosContient($x, $y, $idEtreVivant, $id){
 }
 
 
-
-
-
+// Fonction qui place les elements dans une zone à l'aide des 3 fonctions précédentes
 function placeElements($largeur, $longueur, $instances, $idZone){
 	// Declaration d'un tableau de taille longueur x largeur
 	$zone = array();
@@ -447,7 +451,7 @@ function placeElements($largeur, $longueur, $instances, $idZone){
 
 
 
-
+// Renvoie toutes les info d'une Creature si elle se trouve à la position (x, y)
 function getCreatureZonePos($idZone, $x, $y){
 	$connexion = getConnexionBD();
 
@@ -462,6 +466,7 @@ function getCreatureZonePos($idZone, $x, $y){
 	return NULL;
 }
 
+// Renvoie toutes les info d'un PNJ si il se trouve à la position (x, y)
 function getPNJZonePos($idZone, $x, $y){
 	$connexion = getConnexionBD();
 
@@ -476,7 +481,7 @@ function getPNJZonePos($idZone, $x, $y){
 	return NULL;
 }
 
-
+// Renvoie toutes les info d'un Piege si il se trouve à la position (x, y)
 function getPiegeZonePos($idZone, $x, $y){
 	$connexion = getConnexionBD();
 
@@ -491,6 +496,7 @@ function getPiegeZonePos($idZone, $x, $y){
 	return NULL;
 }
 
+// Renvoie toutes les info d'un Mobilier si il se trouve à la position (x, y)
 function getMobilierZonePos($idZone, $x, $y){
 	$connexion = getConnexionBD();
 
@@ -505,6 +511,7 @@ function getMobilierZonePos($idZone, $x, $y){
 	return NULL;
 }
 
+// Renvoie toutes les info d'un Equipement si il se trouve à la position (x, y)
 function getEquipementZonePos($idZone, $x, $y){
 	$connexion = getConnexionBD();
 
@@ -519,7 +526,7 @@ function getEquipementZonePos($idZone, $x, $y){
 	return NULL;
 }
 
-
+// Créé un tableau avec les info sur l'element à chaque coordonnée de la zone avec les type <=> table et les info en reutilisant les 5 fonctions précédantes
 function createZoneInfoArray($idZone, $largeur, $longueur){
 
 	// Initialisation du tableau vide
@@ -605,7 +612,7 @@ function createZoneInfoArray($idZone, $largeur, $longueur){
 
 // Creation de carte 
 
-
+// Initialise une Carte avec un nom et une description
 function initCarte($nomCarte, $description){
 	$message = "";
 
@@ -629,7 +636,7 @@ function initCarte($nomCarte, $description){
 }
 
 
-
+// Ajoute a la Carte un idCreateur et crée le Contrib s'il n'existe pas 
 function createContrib($nom, $prenom, $nomCarte){
 
 	$connexion = getConnexionBD();
@@ -657,7 +664,7 @@ function createContrib($nom, $prenom, $nomCarte){
 	mysqli_query($connexion, $query);
 }
 
-
+// Initialise une zone dans une carte avec les parametre passé en donné
 function initZoneCarte($largeur, $longueur, $environnement, $description, $x, $y, $nomCarte){
 	$connexion = getConnexionBD();
 
@@ -673,7 +680,7 @@ function initZoneCarte($largeur, $longueur, $environnement, $description, $x, $y
 	return $res;
 }
 
-
+// Initialise les zones de la carte et réutilisant les fonction précédantes  
 function initLesZonesCarte($param){
 	$connexion = getConnexionBD();
 
@@ -702,7 +709,7 @@ function initLesZonesCarte($param){
 	}
 }
 
-
+// Renvoie l'idZone pour une position (x, y) donnée
 function getZonePlacement($param, $x, $y){
 	$connexion = getConnexionBD();
 
@@ -720,6 +727,7 @@ function getZonePlacement($param, $x, $y){
 	return "";
 }
 
+// Renvoie la position max selon l'axe ('x' ou 'y') des zones dans une carte
 function getMaxPos($param, $axe){
 	$connexion = getConnexionBD();
 
@@ -742,7 +750,7 @@ function getMaxPos($param, $axe){
 
 }
 
-
+// Retourne les dimensions d'une zone avec son idZone passé en donné
 function getDimZone($idZone){
 	$connexion = getConnexionBD();
 
@@ -755,7 +763,34 @@ function getDimZone($idZone){
 }
 
 
+// Retourne un tableau avec les attributs d'un type : Mobilier, Piege, Equipement, PNJ, Creature
+function getAttributType($type){
 
+	if($type = 'Creature'){
+		$tab = array_merge(listColums('Creature'), listColums('EtreVivant'), listColums('Contient'));
+		return $tab;
+	}
+	if($type = 'PNJ'){
+		$tab = array_merge(listColums('PNJ'), listColums('EtreVivant'), listColums('Contient'));
+		return $tab;
+	}
+
+	if($type = 'Mobilier'){
+		$tab = array_merge(listColums('Mobilier'), listColums('ElementFixe'), listColums('OnTrouve'));
+		return $tab;
+	}
+
+	if($type = 'Piege'){
+		$tab = array_merge(listColums('Piege'), listColums('ElementFixe'), listColums('OnTrouve'));
+		return $tab;
+	}
+
+	if($type = 'Equipement'){
+		$tab = array_merge(listColums('Equipement'), listColums('ElementFixe'), listColums('OnTrouve'));
+		return $tab;
+	}
+	return NULL;
+}
 
 
 
