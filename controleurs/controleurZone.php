@@ -85,7 +85,7 @@ if(isset($_POST['boutonGenererZone'])){
 	initContient_EV($randInst, $idZone);
 	initOnTrouve_EF($randInst, $idZone);
 
-	$zone = placeElements($param, $randInst, $idZone);
+	$zone = placeElements($param['largeurZone'], $param['longueurZone'], $randInst, $idZone);
 
 }
 

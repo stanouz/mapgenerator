@@ -287,12 +287,10 @@ function setPosContient($x, $y, $idEtreVivant, $id){
 
 
 
-function placeElements($param, $instances, $idZone){
+function placeElements($largeur, $longueur, $instances, $idZone){
 	
 
 
-	$longueur = $param['longueurZone'];
-	$largeur  = $param['largeurZone'];
 
 
 	// Declaration d'un tableau de taille longueur x largeur
@@ -522,6 +520,88 @@ function createContrib($nom, $prenom, $nomCarte){
 }
 
 
+function initZoneCarte($largeur, $longueur, $environnement, $description, $x, $y, $nomCarte){
+	$connexion = getConnexionBD();
+
+	$description = mysqli_real_escape_string($connexion, $description);
+	$environnement = mysqli_real_escape_string($connexion, $environnement);
+	$nomCarte = mysqli_real_escape_string($connexion, $nomCarte);
+
+
+	$query = "INSERT INTO Zone(descriptionZone, longueurZone, largeurZone, nomCarte, posZone_x, posZone_y, nomEnvironnement) VALUES ('".$description."', ".$longueur.", ".$largeur.", '".$nomCarte."', ".$x.", ".$y.", '".$environnement."')";
+
+	$res = mysqli_query($connexion, $query);
+
+	return $res;
+}
+
+
+function initLesZonesCarte($param){
+	$connexion = getConnexionBD();
+
+	$nbZone = rand($param['zone']['min'], $param['zone']['max']);
+	$idZone = getZoneID();
+	$mod = round(sqrt($nbZone));
+	$cmpt= 0;
+
+	for($i=0; $i<$nbZone; $i++){
+		if(fmod($i, $mod)==0 && $i!=0){
+			$cmpt++;
+		}
+		$description = "zone_".$i;
+		$sizeZone = rand($param['dimZone']['min'], $param['dimZone']['max']);
+		initZoneCarte($sizeZone, $sizeZone, "Desert", $description, fmod($i, $mod), $cmpt, $param['nomCarte']);
+
+		$randInst = getInstancesForZone($param);
+
+		initContient_EV($randInst, $idZone+$i);
+		initOnTrouve_EF($randInst, $idZone+$i);
+
+		placeElements($sizeZone, $sizeZone, $randInst, $idZone+$i);
+
+		
+	}
+}
+
+
+function getZonePlacement($param, $x, $y){
+	$connexion = getConnexionBD();
+
+	$nomCarte = mysqli_real_escape_string($connexion, $param['nomCarte']);
+
+
+	$query = "SELECT idZone FROM Zone WHERE nomCarte='".$nomCarte."' AND posZone_x =".$x." AND posZone_y = ".$y;
+
+	$res = mysqli_query($connexion, $query);
+	$id = mysqli_fetch_all($res, MYSQLI_ASSOC);
+
+	if(mysqli_num_rows($res)!=0){
+		return  $id[0]['idZone'];
+	}
+	return "";
+}
+
+function getMaxPos($param, $axe){
+	$connexion = getConnexionBD();
+
+	$nomCarte = mysqli_real_escape_string($connexion, $param['nomCarte']);
+
+	if($axe != 'x' && $axe != 'y'){
+		return;
+	}
+
+
+	$query = "SELECT MAX(posZone_".$axe.") FROM Zone WHERE nomCarte='".$nomCarte."'";
+
+	$res = mysqli_query($connexion, $query);
+	$id = mysqli_fetch_all($res);
+
+	if(mysqli_num_rows($res)!=0){
+		return  $id[0][0];
+	}
+	return $res;
+
+}
 
 
 

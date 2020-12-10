@@ -27,17 +27,17 @@
 			<input type="text" name="descriptionCarte" id="descriptionCarte" placeholder="Description de la carte :" required />
 			<br/>
 			<label for="minZone">nombre minimal de zones à generer : </label>
-			<input type="number" name="minZone" id="minZone" value="10" min="1" max="20" required />
+			<input type="number" name="minZone" id="minZone" value="5" min="1" max="20" required />
 			<br/>
 			<label for="maxZone">nombre maximal de zones à generer : </label>
 			<input type="number" name="maxZone" id="maxZone" value="10" min="1" max="20" required />
 			<br/>
 			<label for="dimMinZone">Dimensions minimale des zones : </label>
-			<input type="number" name="dimMinZone" id="dimMinZone" value="5" min="1" max="20" required />
+			<input type="number" name="dimMinZone" id="dimMinZone" value="20" min="1" max="60" required />
 			<br/>
 
 			<label for="dimMaxZone">Dimensions maximale des zones : </label>
-			<input type="number" name="dimMaxZone" id="dimMaxZone" value="5" min="1" max="20" required />
+			<input type="number" name="dimMaxZone" id="dimMaxZone" value="30" min="1" max="60" required />
 
 			<br/>
 			<label for="choixEnvironnementCarte">Choississiez les types d'environnement que vous souhaitez voir dans votre carte : </label>
@@ -113,6 +113,28 @@
 		</form>
 
 		<p><?= $message ?></p>
+
+
+		<?php
+			if(isset($_POST['boutonGenerer'])){
+
+
+
+
+				echo "<table class='zone'>";
+				for($i=0; $i<=$maxY; $i++){
+					echo "<tr>";
+					for($j=0; $j<=$maxX; $j++){
+						echo "<td class='zone' style='background-color: #F2F2F2'>".getZonePlacement($param, $j, $i)."</td>";
+					}
+					echo "</tr>";
+				}
+				echo "</table>";
+
+
+			}
+		?>
+
 
 	</main>
 

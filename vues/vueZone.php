@@ -96,13 +96,7 @@
 
 		<div class="tables">
 			<?php 
-
-			
-
-
-
-
-
+	
 			if(isset($_POST['boutonGenererZone'])){
 				
 
@@ -116,11 +110,6 @@
 				}
 				echo "</table>";
 			}	
-
-
-
-
-
 
 			?>
 		</div>

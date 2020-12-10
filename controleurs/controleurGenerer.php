@@ -47,8 +47,14 @@ if(isset($_POST['boutonGenerer'])){
 	$message = initCarte($param['nomCarte'], $param['description']);
 	createContrib($param['nom'], $param['prenom'], $param['nomCarte']);
 	
+	
 
+	initLesZonesCarte($param);
+	
+	$maxX = getMaxPos($param, 'x');
+	$maxY = getMaxPos($param, 'y');
 
+	
 
 }
 
