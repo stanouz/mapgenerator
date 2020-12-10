@@ -2,6 +2,15 @@
 $message ="";
 $environnements = getAttribut("Environnement", "nomEnvironnement");
 
+// Definition des couleurs pour chaque type d'élements
+$colors = array(
+				"Creature"   => "#EC7063",
+				"PNJ"        => "#5499C7",
+				"Mobilier"   => "#F0B27A",
+				"Piege"      => "#99A3A4",
+				"Equipement" => "#A9DFBF",
+				" "          => "#F2F4F4"
+);
 
 function getParametreCarte(){
 	$param = array(
@@ -54,7 +63,8 @@ if(isset($_POST['boutonGenerer'])){
 	$maxX = getMaxPos($param, 'x');
 	$maxY = getMaxPos($param, 'y');
 
-	
+
+
 
 }
 

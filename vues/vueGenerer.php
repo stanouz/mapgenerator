@@ -26,18 +26,18 @@
 			<label for="descriptionCarte">Description de la carte : </label>
 			<input type="text" name="descriptionCarte" id="descriptionCarte" placeholder="Description de la carte :" required />
 			<br/>
-			<label for="minZone">nombre minimal de zones à generer : </label>
-			<input type="number" name="minZone" id="minZone" value="5" min="1" max="20" required />
+			<label for="minZone">Nombre minimal de zones à generer : </label>
+			<input type="number" name="minZone" id="minZone" value="1" min="1" max="20" required />
 			<br/>
-			<label for="maxZone">nombre maximal de zones à generer : </label>
-			<input type="number" name="maxZone" id="maxZone" value="10" min="1" max="20" required />
+			<label for="maxZone">Nombre maximal de zones à generer : </label>
+			<input type="number" name="maxZone" id="maxZone" value="5" min="1" max="20" required />
 			<br/>
 			<label for="dimMinZone">Dimensions minimale des zones : </label>
-			<input type="number" name="dimMinZone" id="dimMinZone" value="20" min="1" max="60" required />
+			<input type="number" name="dimMinZone" id="dimMinZone" value="10" min="1" max="60" required />
 			<br/>
 
 			<label for="dimMaxZone">Dimensions maximale des zones : </label>
-			<input type="number" name="dimMaxZone" id="dimMaxZone" value="30" min="1" max="60" required />
+			<input type="number" name="dimMaxZone" id="dimMaxZone" value="20" min="1" max="60" required />
 
 			<br/>
 			<label for="choixEnvironnementCarte">Choississiez les types d'environnement que vous souhaitez voir dans votre carte : </label>
@@ -100,7 +100,7 @@
 			</select>
 			<br>
 
-			<label for="nbMoyenZone">nombre moyen de zones reliées à une zones données : </label>
+			<label for="nbMoyenZone">Nombre moyen de zones reliées à une zones données : </label>
 			<input type="number" name="nbMoyenzone" id="nbMoyenZone" value="4" min="1" max="4" required />
 			<br>
 
@@ -119,20 +119,58 @@
 			if(isset($_POST['boutonGenerer'])){
 
 
-
+				
 
 				echo "<table class='zone'>";
 				for($i=0; $i<=$maxY; $i++){
 					echo "<tr>";
 					for($j=0; $j<=$maxX; $j++){
-						echo "<td class='zone' style='background-color: #F2F2F2'>".getZonePlacement($param, $j, $i)."</td>";
+						$id = getZonePlacement($param, $i, $j);
+						if($id != ""){
+							echo "<td class='zone'>";       
+
+								$dim = getDimZone($id);
+
+
+								$zone = createZoneInfoArray($id, $dim['largeurZone'], $dim['longueurZone']);
+
+								
+								echo "<table class='zone'>";
+					
+								for($k=0; $k < $dim['longueurZone']; $k++){
+									echo "<tr>";
+
+									for($l=0; $l < $dim['largeurZone']; $l++){
+										
+										$msg = " ";
+										
+										foreach ($zone[$k][$l]['info'] as $colonne) {
+											$msg = $msg."<br/>".$colonne;
+										}
+										
+										echo "<td class='zone' style='background-color: ".$colors[$zone[$k][$l]['type']]." ' >".$msg."</td>";
+
+									}
+
+									echo "</tr>";
+								}
+
+
+								echo "</table>";
+
+								
+
+						}
+							echo "</td>";
+
 					}
 					echo "</tr>";
 				}
 				echo "</table>";
 
-
+				echo "<br/><br/>";
 			}
+			
 		?>
 
 

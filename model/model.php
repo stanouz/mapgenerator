@@ -288,11 +288,6 @@ function setPosContient($x, $y, $idEtreVivant, $id){
 
 
 function placeElements($largeur, $longueur, $instances, $idZone){
-	
-
-
-
-
 	// Declaration d'un tableau de taille longueur x largeur
 	$zone = array();
 
@@ -303,10 +298,7 @@ function placeElements($largeur, $longueur, $instances, $idZone){
 		}
 	}
 
-
 	// Remplissage du tableau => coordonnée 0, 0 en haut à gauche
-
-
 	foreach ($instances['Piege'] as $instance) {
 		$long = $instance['zoneEffetLongueur'];
 		$larg = $instance['zoneEffetLargeur'];
@@ -456,6 +448,152 @@ function placeElements($largeur, $longueur, $instances, $idZone){
 
 
 
+function getCreatureZonePos($idZone, $x, $y){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM Creature INNER JOIN Contient c ON idCreature = c.idEtreVivant INNER JOIN EtreVivant e ON idCreature = e.idEtreVivant WHERE idZone =".$idZone." AND posX = ".$x." AND posY =".$y;
+
+	$res = mysqli_query($connexion, $query);
+
+	if(mysqli_num_rows($res)!=0){
+		return mysqli_fetch_all($res, MYSQLI_ASSOC);
+	}
+
+	return NULL;
+}
+
+function getPNJZonePos($idZone, $x, $y){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM PNJ INNER JOIN Contient c ON idPNJ = c.idEtreVivant INNER JOIN EtreVivant e ON idPNJ = e.idEtreVivant WHERE idZone =".$idZone." AND posX = ".$x." AND posY =".$y;
+
+	$res = mysqli_query($connexion, $query);
+
+	if(mysqli_num_rows($res)!=0){
+		return mysqli_fetch_all($res, MYSQLI_ASSOC);
+	}
+
+	return NULL;
+}
+
+
+function getPiegeZonePos($idZone, $x, $y){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM Piege INNER JOIN OnTrouve o ON idPiege = o.idElement INNER JOIN ElementFixe e ON idPiege = e.idElement WHERE idZone =".$idZone."   AND posX = ".$x." AND posY =".$y;
+
+	$res = mysqli_query($connexion, $query);
+
+	if(mysqli_num_rows($res)!=0){
+		return mysqli_fetch_all($res, MYSQLI_ASSOC);
+	}
+
+	return NULL;
+}
+
+function getMobilierZonePos($idZone, $x, $y){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM Mobilier INNER JOIN OnTrouve o ON idMobilier = o.idElement INNER JOIN ElementFixe e ON idMobilier = e.idElement WHERE idZone =".$idZone."   AND posX = ".$x." AND posY =".$y;
+
+	$res = mysqli_query($connexion, $query);
+
+	if(mysqli_num_rows($res)!=0){
+		return mysqli_fetch_all($res, MYSQLI_ASSOC);
+	}
+
+	return NULL;
+}
+
+function getEquipementZonePos($idZone, $x, $y){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT * FROM Equipement INNER JOIN OnTrouve o ON idEquipement = o.idElement INNER JOIN ElementFixe e ON idEquipement = e.idElement WHERE idZone =".$idZone."   AND posX = ".$x." AND posY =".$y;
+
+	$res = mysqli_query($connexion, $query);
+
+	if(mysqli_num_rows($res)!=0){
+		return mysqli_fetch_all($res, MYSQLI_ASSOC);
+	}
+
+	return NULL;
+}
+
+
+function createZoneInfoArray($idZone, $largeur, $longueur){
+
+	// Initialisation du tableau vide
+	for($i=0; $i < $longueur; $i++){
+		for($j=0; $j < $largeur; $j++){
+			$tab[$i][$j]['type']   = " ";
+			$tab[$i][$j]['info'][] = " ";
+		}
+	}
+
+
+	for($i=0; $i < $longueur; $i++){
+		for($j=0; $j < $largeur; $j++){
+			$res =getCreatureZonePos($idZone, $i, $j);
+			if($res !=NULL){
+				$res = $res[0];
+				$tab[$i][$j]['type'] = "Creature";
+				$tab[$i][$j]['info'] = $res;
+			}
+
+			$res =getPNJZonePos($idZone, $i, $j);
+			if($res !=NULL){
+				$res = $res[0];
+				$tab[$i][$j]['type'] = "PNJ";
+				$tab[$i][$j]['info'] = $res;
+			}
+
+			$res =getPiegeZonePos($idZone, $i, $j);
+			if($res !=NULL){
+				$res = $res[0];
+				$tab[$i][$j]['type'] = "Piege";
+				$tab[$i][$j]['info'] = $res;
+				$long = $res['zoneEffetLongueur'];
+				$larg = $res['zoneEffetLargeur'];
+
+				for($k=$i; $k < $long + $i; $k++){
+					for($l=$j; $l < $larg + $j; $l++){
+						$tab[$k][$l]['type'] = "Piege";
+						$tab[$k][$l]['info'] = $res;
+					}
+				}
+
+			}
+
+			$res =getMobilierZonePos($idZone, $i, $j);
+			if($res !=NULL){
+				$res = $res[0];
+				$tab[$i][$j]['type'] = "Mobilier";
+				$tab[$i][$j]['info'] = $res;
+				$long = $res['longueur'];
+				$larg = $res['largeur'];
+
+				for($k=$i; $k < $long + $i; $k++){
+					for($l=$j; $l < $larg + $j; $l++){
+						$tab[$k][$l]['type'] = "Mobilier";
+						$tab[$k][$l]['info'] = $res;
+					}
+				}
+			}
+
+			$res =getEquipementZonePos($idZone, $i, $j);
+			if($res !=NULL){
+				$res = $res[0];
+				$tab[$i][$j]['type'] = "Equipement";
+				$tab[$i][$j]['info'] = $res;
+			}
+
+			
+		}
+	}
+
+	return $tab;
+
+}
 
 
 
@@ -540,7 +678,7 @@ function initLesZonesCarte($param){
 	$connexion = getConnexionBD();
 
 	$nbZone = rand($param['zone']['min'], $param['zone']['max']);
-	$idZone = getZoneID();
+	
 	$mod = round(sqrt($nbZone));
 	$cmpt= 0;
 
@@ -552,12 +690,13 @@ function initLesZonesCarte($param){
 		$sizeZone = rand($param['dimZone']['min'], $param['dimZone']['max']);
 		initZoneCarte($sizeZone, $sizeZone, "Desert", $description, fmod($i, $mod), $cmpt, $param['nomCarte']);
 
+		$idZone = getZoneID();
 		$randInst = getInstancesForZone($param);
 
-		initContient_EV($randInst, $idZone+$i);
-		initOnTrouve_EF($randInst, $idZone+$i);
+		initContient_EV($randInst, $idZone);
+		initOnTrouve_EF($randInst, $idZone);
 
-		placeElements($sizeZone, $sizeZone, $randInst, $idZone+$i);
+		placeElements($sizeZone, $sizeZone, $randInst, $idZone);
 
 		
 	}
@@ -601,6 +740,18 @@ function getMaxPos($param, $axe){
 	}
 	return $res;
 
+}
+
+
+function getDimZone($idZone){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT largeurZone, longueurZone FROM Zone WHERE idZone = ".$idZone;
+
+	$res = mysqli_query($connexion, $query);
+	$size = mysqli_fetch_all($res, MYSQLI_ASSOC);
+
+	return $size[0];
 }
 
 

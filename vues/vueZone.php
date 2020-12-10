@@ -99,16 +99,50 @@
 	
 			if(isset($_POST['boutonGenererZone'])){
 				
-
+				/*
 				echo "<table class='zone'>";
 				foreach($zone as $ligne){
 					echo "<tr>";
-					foreach($ligne as $case){
-						echo "<td class='zone' style='background-color: ".$colors[$case['type']]." ' >".$case['nom']."</td>";
+					foreach($ligne['info'] as $case){
+
+						$msg = " ";
+						foreach ($case as $colonne) {
+							$msg = $msg."<br/>".$colonne;
+						}
+
+
+						echo "<td class='zone' style='background-color: ".$colors[$ligne['type']]." ' >".$msg."</td>";
 					}
 					echo "</tr>";
 				}
 				echo "</table>";
+
+*/
+
+				echo "<table class='zone'>";
+				
+				for($i=0; $i < $param['longueurZone']; $i++){
+					echo "<tr>";
+
+					for($j=0; $j < $param['largeurZone']; $j++){
+						
+						$msg = " ";
+						
+						foreach ($zone[$i][$j]['info'] as $colonne) {
+							$msg = $msg."<br/>".$colonne;
+						}
+						
+						echo "<td class='zone' style='background-color: ".$colors[$zone[$i][$j]['type']]." ' >".$msg."</td>";
+
+					}
+
+					echo "</tr>";
+				}
+
+
+				echo "</table>";
+
+
 			}	
 
 			?>
