@@ -762,36 +762,61 @@ function getDimZone($idZone){
 	return $size[0];
 }
 
+// Statistique sur les donnée
 
-// Retourne un tableau avec les attributs d'un type : Mobilier, Piege, Equipement, PNJ, Creature
-function getAttributType($type){
+function getMostUseCategorie(){
+	$connexion = getConnexionBD();
 
-	if($type = 'Creature'){
-		$tab = array_merge(listColums('Creature'), listColums('EtreVivant'), listColums('Contient'));
-		return $tab;
-	}
-	if($type = 'PNJ'){
-		$tab = array_merge(listColums('PNJ'), listColums('EtreVivant'), listColums('Contient'));
-		return $tab;
-	}
+	$query = "SELECT COUNT(*), categorie FROM Contient c INNER JOIN EtreVivant e ON c.idEtreVivant = e.idEtreVivant GROUP BY categorie  ORDER BY COUNT(*) DESC LIMIT 10";
 
-	if($type = 'Mobilier'){
-		$tab = array_merge(listColums('Mobilier'), listColums('ElementFixe'), listColums('OnTrouve'));
-		return $tab;
-	}
+	$res = mysqli_query($connexion, $query);
 
-	if($type = 'Piege'){
-		$tab = array_merge(listColums('Piege'), listColums('ElementFixe'), listColums('OnTrouve'));
-		return $tab;
-	}
-
-	if($type = 'Equipement'){
-		$tab = array_merge(listColums('Equipement'), listColums('ElementFixe'), listColums('OnTrouve'));
-		return $tab;
-	}
-	return NULL;
+	return mysqli_fetch_all($res);
 }
 
+
+function plusDePiegeZone(){
+	$connexion = getConnexionBD();
+
+	$query ="SELECT COUNT(*), idZone FROM OnTrouve INNER JOIN Piege ON idElement = idPiege GROUP BY idZone ORDER BY COUNT(*) DESC LIMIT 5";
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res);
+} 
+		
+function avgPtVieCategorie(){
+	$connexion = getConnexionBD();
+
+	$query = "SELECT AVG(pointDeVie), categorie  FROM  EtreVivant   GROUP BY categorie  ORDER BY AVG(pointDeVie) DESC  LIMIT 10";
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res);
+}		
+
+function plusGrandeCarte(){
+
+	$connexion = getConnexionBD();
+
+	$query = "SELECT nomCarte, SUM(longueurZone * largeurZone) as superficie FROM Carte NATURAL JOIN Zone GROUP BY nomCarte ORDER BY superficie DESC LIMIT 5";
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res);	
+}
+
+
+function plusGrandCreateur(){
+
+	$connexion = getConnexionBD();
+
+	$query = "SELECT COUNT(*), nomContributrice, prenomContributrice FROM Carte INNER JOIN Contributrice ON idCreateur = idContributrice GROUP BY idContributrice ORDER BY COUNT(*) DESC LIMIT 5";
+
+	$res = mysqli_query($connexion, $query);
+
+	return mysqli_fetch_all($res);	
+}
 
 
 ?>

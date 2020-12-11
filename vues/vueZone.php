@@ -99,25 +99,7 @@
 	
 			if(isset($_POST['boutonGenererZone'])){
 				
-				/*
-				echo "<table class='zone'>";
-				foreach($zone as $ligne){
-					echo "<tr>";
-					foreach($ligne['info'] as $case){
-
-						$msg = " ";
-						foreach ($case as $colonne) {
-							$msg = $msg."<br/>".$colonne;
-						}
-
-
-						echo "<td class='zone' style='background-color: ".$colors[$ligne['type']]." ' >".$msg."</td>";
-					}
-					echo "</tr>";
-				}
-				echo "</table>";
-
-*/
+				
 
 				echo "<table class='zone'>";
 				

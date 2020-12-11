@@ -95,6 +95,57 @@ VALUES((SELECT MAX(idEtreVivant)
 	   'Bavard',
 	   'Qui veut du bon poisson !');
 
+/* Insertion Equipement */
+INSERT INTO ElementFixe(nomElement) VALUES ('épée');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='épée'), 8);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('sac');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='sac'), 13);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('bouclier');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='bouclier'), 23);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('chaussure');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='chaussure'), 4);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('casque');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='casque'), 12);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('armure');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='armure'), 38);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('GPS');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='GPS'), 18);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('carte');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='carte'), 8);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('gourde');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='gourde'), 18);
+
+INSERT INTO ElementFixe(nomElement) VALUES ('chaussette');
+
+INSERT INTO Equipement
+VALUES ((SELECT idElement FROM ElementFixe WHERE nomElement='chaussette'), 1);
+
 
 
 /* Insertion description environnement */

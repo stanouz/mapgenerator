@@ -114,7 +114,8 @@
 
 		<p><?= $message ?></p>
 
-
+		<!-- Musique de fond mais mis en commentaire pour la présentation -->
+		<!--<embed src="musique.mp3" autostart="true" loop="true" hidden="true"></embed>-->
 		<?php
 			if(isset($_POST['boutonGenerer'])){
 
@@ -145,8 +146,6 @@
 										$msg = " ";
 										
 										
-
-
 
 										foreach ($zone[$k][$l]['info'] as $colonne) {
 											$msg = $msg."<br/>".$colonne;

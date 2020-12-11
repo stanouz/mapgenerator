@@ -12,6 +12,9 @@
 
 	<div id="divCentral">
 		<main>
+
+
+
 			<img src="img/map.jpg" width="93%"></img>
 			
 		</main>
